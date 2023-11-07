@@ -6,8 +6,8 @@ public class Client {
         Student s1 = new Student(1,"Razat",26);
         Batch b1 = new Batch("Intermediate","Rahul Grover");
         s1.setBatch(b1);
-        Student s2 = new Student(2,"Sidharth",25);
-        Batch b2 = new Batch("Begineer","Deepak");
+        Student s2 = new Student(2,"Siddhartha",25);
+        Batch b2 = new Batch("Beginner","Deepak");
         s2.setBatch(b2);
         // Scenario 2: Printing an object without overriding toString() method.
         System.out.println(s1);

@@ -1,7 +1,5 @@
 package com.lld.one.b_access_modifier_constructor.demo_constructors;
 
-import javax.sound.sampled.Line;
-
 public class LinkedListNode {
     private int data;
     private LinkedListNode next;
