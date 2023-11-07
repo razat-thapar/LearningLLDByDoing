@@ -7,6 +7,11 @@ public class Instructor extends User{
     List<String> batches;
     double avg_rating;
 
+    public Instructor(){
+        super();
+        System.out.println("Default constructor of Instructor is called!");
+    }
+
     public Instructor(String name, int id, String username){
         super(name,id,username);
         this.batches = new ArrayList<>();

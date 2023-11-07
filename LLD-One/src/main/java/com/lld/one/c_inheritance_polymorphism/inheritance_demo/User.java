@@ -5,6 +5,9 @@ public class User {
     protected int id;
     private String username;
 
+    public User(){
+        System.out.println("Default constructor of User is called!");
+    }
     public User(String name, int id, String username) {
         this.name=name;
         this.id=id;
