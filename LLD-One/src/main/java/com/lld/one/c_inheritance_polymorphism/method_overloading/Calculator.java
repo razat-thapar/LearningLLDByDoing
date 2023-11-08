@@ -2,8 +2,11 @@ package com.lld.one.c_inheritance_polymorphism.method_overloading;
 
 public class Calculator {
     private static final double pi = 22/7;
-    public Calculator(){
+    private String name;
+    public Calculator(String name){
+        this.name=name;
     }
+    public Calculator()
     //different versions of add(a,b) method.
     public long add(long a, long b){
         System.out.println("Inside add(long,long)");

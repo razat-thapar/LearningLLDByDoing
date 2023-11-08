@@ -12,5 +12,8 @@ public class Client {
         //Scenario 3: Demonstrating Method Overloading using varargs.
         System.out.println(cal.add(23,43,23,32));
         System.out.println(cal.add(23.234,234.8,2.3,3.23,3.2));
+        //Scenario 4: Demonstrating Constructor Overloading.
+        Calculator cal2 = new Calculator("CASIO");
+
     }
 }
