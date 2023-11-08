@@ -6,7 +6,7 @@ public class Calculator {
     public Calculator(String name){
         this.name=name;
     }
-    public Calculator()
+    public Calculator(){}
     //different versions of add(a,b) method.
     public long add(long a, long b){
         System.out.println("Inside add(long,long)");
