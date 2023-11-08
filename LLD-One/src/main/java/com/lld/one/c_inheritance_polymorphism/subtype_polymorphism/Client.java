@@ -25,5 +25,21 @@ public class Client {
         //post down-casting to Circle it will work!
         Circle s2 = (Circle)s1;
         s2.circleDetails();
+
+        //Scenario 3: creating parent's object & storing it in child reference variable.
+        /* This will give compile time error. It's not possible to store parent's object in child class.
+        Rectangle s3 = (Rectangle) new Shape(){
+
+            @Override
+            public double getArea() {
+                return 0;
+            }
+
+            @Override
+            public double getPerimeter() {
+                return 0;
+            }
+        };
+        */
     }
 }

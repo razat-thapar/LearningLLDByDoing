@@ -17,6 +17,12 @@ public class Main {
         b1.hunt();
         b2.hunt();
 
+        //Scenario 3: Storing Parent object in child class reference variable
+        // It will throw exception as this is not allowed in java.
+        Sparrow sp = (Sparrow) new Bird();
+        sp.fly();
+        sp.hunt();
+
     }
 
 }
