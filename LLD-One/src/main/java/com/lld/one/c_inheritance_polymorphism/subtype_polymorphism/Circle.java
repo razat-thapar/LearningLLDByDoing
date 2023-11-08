@@ -15,4 +15,8 @@ public class Circle implements Shape{
     public double getPerimeter() {
         return (2*Math.PI*radius)%(MOD);
     }
+
+    public void circleDetails(){
+        System.out.printf("Circle with radius : %f %n",this.radius);
+    }
 }

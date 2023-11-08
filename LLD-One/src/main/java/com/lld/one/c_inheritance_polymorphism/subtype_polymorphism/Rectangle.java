@@ -16,4 +16,8 @@ public class Rectangle implements Shape{
     public double getPerimeter() {
         return (2*(width+height))%MOD;
     }
+
+    public void rectangleDetails(){
+        System.out.printf("Rectangle with width : %f & height : %f %n",this.width,this.height);
+    }
 }
