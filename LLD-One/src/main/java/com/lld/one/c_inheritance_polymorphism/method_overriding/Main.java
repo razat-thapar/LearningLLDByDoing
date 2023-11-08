@@ -16,6 +16,8 @@ public class Main {
         // hence, this is resolved at compile time.
         b1.hunt();
         b2.hunt();
+        ((Sparrow) b2).hunt();
+
 
         //Scenario 3: Storing Parent object in child class reference variable
         // It will throw exception as this is not allowed in java.
