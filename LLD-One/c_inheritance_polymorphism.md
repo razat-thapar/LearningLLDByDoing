@@ -1,6 +1,6 @@
 # Inheritance and polymorphism
 ## Agenda
-- [Inheritance, constructors and access modifiers](#inheritance-constructors-and-access-modifiers)
+- [Inheritance and Polymorphism](#inheritance-constructors-and-access-modifiers)
   - [Agenda](#agenda)
     - [Inheritance](#inheritance)
       - [Types of inheritance](#types-of-inheritance)

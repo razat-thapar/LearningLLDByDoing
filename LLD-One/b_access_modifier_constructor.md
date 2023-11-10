@@ -1,11 +1,10 @@
-# Inheritance, constructors and access modifiers
+# Constructors and Access modifiers
 ## Agenda
-- [Inheritance, constructors and access modifiers](#inheritance-constructors-and-access-modifiers)
+- [Constructors and Access modifiers](#inheritance-constructors-and-access-modifiers)
   - [Agenda](#agenda)
   - [Key terms](#key-terms)
     - [Constructor](#constructor)
     - [Access modifier](#access-modifier)
-    - [Inheritance](#inheritance)
   - [>](#)
   - [Constructors](#constructors)
     - [Default constructor](#default-constructor)
