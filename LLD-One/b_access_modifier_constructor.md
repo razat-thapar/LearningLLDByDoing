@@ -10,6 +10,7 @@
     - [Default constructor](#default-constructor)
       - [Syntax of a constructor](#syntax-of-a-constructor)
     - [Parameterised constructor](#parameterised-constructor)
+    - [Copy Constructor](#copy-constructor)
   - [Access modifiers](#access-modifiers)
   - [Reading list](#reading-list)
 
@@ -125,6 +126,26 @@ Now the objects can be created with the following syntax:
 
 ```java
 Student student = new Student("Eklavya", "ek@drona.in");
+```
+### Copy constructor
+
+A copy constructor is a member function that initializes an object using another object of the same class. A copy constructor has the following general function prototype:
+
+```java
+class Student {
+    private String name;
+    private String email;
+
+    public Student(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
+    public Student(Student student) {
+        this.name = student.name;
+        this.email = student.email;
+    }
+}
 ```
 
 In Java, constructors differ from other methods in that:
