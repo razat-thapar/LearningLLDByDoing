@@ -1,4 +1,4 @@
-package com.lld.one.f_executors_threadpool.executorServiceFramework.example1;
+package com.lld.one.f_executor_framework.runnables;
 
 public class NumberPrinter implements Runnable{
     private int num;
