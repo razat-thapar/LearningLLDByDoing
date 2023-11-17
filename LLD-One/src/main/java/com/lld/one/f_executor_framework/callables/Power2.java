@@ -1,4 +1,4 @@
-package com.lld.one.f_executors_threadpool.callables;
+package com.lld.one.f_executor_framework.callables;
 
 import java.util.concurrent.Callable;
 
