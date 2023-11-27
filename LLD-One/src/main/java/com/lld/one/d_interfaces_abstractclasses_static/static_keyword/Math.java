@@ -15,8 +15,8 @@ public class Math {
         return ans;
     }
     //inner class
-    public static class NestedMaths{
-        public static void display(){
+    public static class NestedMaths {
+        public static void display() {
             System.out.println("This is a static nested class");
         }
     }
