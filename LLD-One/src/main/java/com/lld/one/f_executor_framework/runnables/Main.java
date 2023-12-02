@@ -47,9 +47,7 @@ public class Main {
         es.shutdown();
         System.out.printf("Shutdown initiated successfully by : %s %n %s %n",Thread.currentThread().getName(),es);
         try{
-            es.awaitTermination(1,TimeUnit.SECONDS);
-        }catch(InterruptedException e){
-            System.out.println(e.getMessage());
+            shutdownAndAwaitTermination(es);
         }finally {
             end = Instant.now();
             timeElapsed = Duration.between(start,end).toMillis();
@@ -75,13 +73,29 @@ public class Main {
         es2.shutdown();
         System.out.printf("Process ended successfully by : %s %n %s %n",Thread.currentThread().getName(),es2);
         try{
-            es2.awaitTermination(1,TimeUnit.SECONDS);
-        }catch(InterruptedException e){
-            System.out.println(e.getMessage());
+            shutdownAndAwaitTermination(es2);
         }finally {
             end = Instant.now();
             timeElapsed = Duration.between(start,end).toMillis();
             System.out.printf("Total Time taken to complete the task: %d ms %n %s %n",timeElapsed,es2);
+        }
+    }
+    static void shutdownAndAwaitTermination(ExecutorService es){
+        //disable new tasks from being submitted.
+        es.shutdown();
+        try{
+            //wait a while for existing tasks to terminate
+            if(! (es.awaitTermination(60,TimeUnit.SECONDS))){
+                //forcefully cancel all executing tasks.
+                es.shutdownNow();
+                //wait a while for tasks to respond to being cancelled.
+                if(! (es.awaitTermination(60,TimeUnit.SECONDS))){
+                    System.err.println("executor service didn\'t terminate");
+                }
+            }
+        }catch(InterruptedException e){
+            //cancel if current thread also interrupted.
+            es.shutdownNow();
         }
     }
 }

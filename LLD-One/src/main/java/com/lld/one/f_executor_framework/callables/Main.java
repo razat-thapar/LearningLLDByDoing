@@ -2,13 +2,10 @@ package com.lld.one.f_executor_framework.callables;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 public class Main {
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main(String[] args) {
         System.out.printf("Process started by %s %n",Thread.currentThread().getName());
         ExecutorService es = Executors.newFixedThreadPool(5);
         List<Future<Double>> values = new ArrayList<>();
@@ -22,11 +19,34 @@ public class Main {
 
         for(Future<Double> val : values){
             //print the powers of 2 from list.
-            System.out.printf("Value is : %f submitted by %s %n",val.get(),Thread.currentThread().getName());
+            try {
+                System.out.printf("Value is : %f submitted by %s %n",val.get(),Thread.currentThread().getName());
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            }
         }
 
-        es.shutdown();
+        shutdownAndAwaitTermination(es);
 
-        //
+    }
+    static void shutdownAndAwaitTermination(ExecutorService es){
+        //disable new tasks from being submitted.
+        es.shutdown();
+        try{
+            //wait a while for existing tasks to terminate
+            if(! (es.awaitTermination(60, TimeUnit.SECONDS))){
+                //forcefully cancel all executing tasks.
+                es.shutdownNow();
+                //wait a while for tasks to respond to being cancelled.
+                if(! (es.awaitTermination(60,TimeUnit.SECONDS))){
+                    System.err.println("executor service didn\'t terminate");
+                }
+            }
+        }catch(InterruptedException e){
+            //cancel if current thread also interrupted.
+            es.shutdownNow();
+        }
     }
 }
