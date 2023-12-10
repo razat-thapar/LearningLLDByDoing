@@ -102,19 +102,19 @@ The major issue is that multiple threads are accessing a shared resource at the 
         }
     }
 ```
-![critical_section](/media/critical_section.webp)
+![critical_section](./media/critical_section.webp)
 * `Race Conditions` - When more than one thread tries to enter the critical section at the same time.
 * `Preemption` - When a thread is interrupted by another thread. It could be possible that the interrupted thread is in the middle of a critical section. This could result in the interrupted thread not being able to finish the critical section and yield inconsistent results.
 
 ### Properties of a good solution
 * `Mutual Exclusion` - Only one thread can access the critical section at a time. In other terms, there must not be any race conditions.
-![Mutual Exclusion](/media/mutual_exclusion.webp)
+![Mutual Exclusion](./media/mutual_exclusion.webp)
 * `Progress` - The synchronization should not lead to deadlock, where threads are blocked indefinitely and bring the entire program to a halt. It should allow other threads (at least one thread) to execute when a thread is waiting.
-![progress](/media/progress_of_program.webp)
+![progress](./media/progress_of_program.webp)
 * `Bounded Waiting` - A thread should not have to wait indefinitely to enter a critical section. There should be a limit on waiting time.
-![bounded waiting](/media/bounded_waiting.webp)
+![bounded waiting](./media/bounded_waiting.webp)
 * `No busy Waiting` - Busy waiting consumes CPU cycles needlessly. An efficient synchronization solution should not force threads to continuously check for access.
-![no busy waiting](/media/no_busy_waiting.webp)
+![no busy waiting](./media/no_busy_waiting.webp)
 * `Notification` - If a thread is waiting to enter the critical section, it should be notified when the critical section is free.
 
 ## Solutions to synchronisation problems
@@ -126,7 +126,7 @@ Mutex locks are a way to solve the synchronisation problem. Mutex locks are a wa
 A thread can only access the critical section if it has the lock. If a thread does not have the lock, it cannot access the critical section. If a thread has the lock, it can access the critical section. If a thread has the lock, it can release the lock and allow another thread to access the critical section.
 
 Think of a room with a lock. Only one person can enter the room at a time. If a person has the key, they can enter the room. If a person does not have the key, they cannot enter the room. If a person has the key, they can leave the room and give the key to another person. This is the same as a mutex lock.
-![mutex](/media/mutex_example.webp)
+![mutex](./media/mutex_example.webp)
 #### Properties of a mutex lock
 * `Lock` - A thread can only access the critical section if it has the lock.
 * Only one thread can have the lock at a time.
