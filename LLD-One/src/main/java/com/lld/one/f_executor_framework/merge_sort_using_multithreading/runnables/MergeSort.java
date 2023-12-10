@@ -36,9 +36,7 @@ public class MergeSort implements Runnable {
         try {
             f1.get();
             f2.get();
-        } catch (InterruptedException ex) {
-            throw new RuntimeException(ex);
-        } catch (ExecutionException ex) {
+        } catch (InterruptedException | ExecutionException ex) {
             throw new RuntimeException(ex);
         }
 //        while(!f1.isDone() && !f2.isDone()){

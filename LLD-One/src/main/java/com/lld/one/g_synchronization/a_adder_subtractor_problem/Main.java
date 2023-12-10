@@ -3,7 +3,7 @@ package com.lld.one.g_synchronization.a_adder_subtractor_problem;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         //Scenario 1:
-        int iterations = 1000;
+        int iterations = 1000000;
         Counter counter = new Counter();
         Adder adder = new Adder(counter,iterations);
         Subtractor subtractor = new Subtractor(counter,iterations);
