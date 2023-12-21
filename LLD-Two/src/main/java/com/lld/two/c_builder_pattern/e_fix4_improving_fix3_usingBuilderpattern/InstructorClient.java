@@ -1,4 +1,4 @@
-package com.lld.two.c_builder_pattern.d_fix3_passing_class_as_parameter;
+package com.lld.two.c_builder_pattern.e_fix4_improving_fix3_usingBuilderpattern;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,7 +58,7 @@ public class InstructorClient {
         studentBuilder.setBatch("IntermediateFeb23");
         studentBuilder.setPsp(99.0);
         Student s3 = new Student(studentBuilder);
-        System.out.println(s3);
+
         //PROS:
         //1. Type checking is fixed.
         //2. Readability is improved for client. Hence, not error-prone to misspellings etc.
@@ -72,6 +72,43 @@ public class InstructorClient {
         //1. provide a static method in Student class that returns a new StudentBuilder object to the client.
         //   why static ?
         //   Client can access the method without any object.
+        StudentBuilder studentBuilder1 = Student.getStudentBuilder();
+        studentBuilder1.setName("Razat");
+        studentBuilder1.setBatch("IntermediateFeb23");
+        studentBuilder1.setPsp(99.0);
+        Student s4 = new Student(studentBuilder1);
+        System.out.println(s4);
+        //CONS:
+        //Now, still, client can create studentBuilder object via StudentBuilder constructor, how to restrict that?
+        //   Make StudentBuilder constructor private but Student class won't be able to access it .
+
+        //Fix 5: Production Ready Fix
+        //Earlier, StudentBuilder was only responsible to hold the attributes so that client can pass it to Student() constructor.
+        //We will do the following :
+        //1. We will give following responsibilities to StudentBuilder class.
+        //      a. act as a placeholder for Student attributes.
+        //      b. once client calls build() method on StudentBuilder object , create a new Student object and return it to client.
+        //2. We will give following responsibilities to Student class.
+        //      a. It will make the constructor private so that client will create object via StudentBuilder only.
+        //      b. For Immutable Student object,
+        //          all attributes can be made private so that client can't modify them once initialized.
+        //          All setters methods can be made private as well so that client can't modify the attributes once set.
+        //Due to private Student constructor, now we can't access it in StudentBuilder class.
+        //Easy fix is to make StudentBuilder class as inner class of Student.
+        //3. Now to do something like below i.e., method chaining:
+        //   StudentBuilder studentBuilder = Student.getStudentBuilder()
+        //                                 .setName("Razat")
+        //                                 .setBatch("IntermediateFeb23")
+        //                                 .setPsp(99.0)
+        //                                 .build();
+        //   We will do the following :
+        //      a.  We will make setter methods of StudentBuilder class return implicit reference. i.e., "this"
+        //          e.g.,  public StudentBuilder setName(String name){
+        //                      this.name = name;
+        //                      return this;
+        //                 }
+        //That's it. Now, this is called Builder design pattern.
+
 
 
     }
