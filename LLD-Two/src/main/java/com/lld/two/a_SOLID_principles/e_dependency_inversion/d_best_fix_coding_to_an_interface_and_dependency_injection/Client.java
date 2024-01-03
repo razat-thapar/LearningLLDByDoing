@@ -21,7 +21,7 @@ public class Client {
         //Fix3 : Dependency Inversion + Dependency Injection
         //Explanation: Now, Client is responsible to switch from one cloudProvider to another.
         // Developers don't need to change the code as it's loosely coupled system.
-        CloudDB cloudDB = new GcpDB();
+        CloudDB cloudDB = new GcpDB(); // client creates object of DB provider and inject it to DB Manager.
         DatabaseManager dm = new DatabaseManager(cloudDB);
         dm.makeConnection();
         dm.addStudent();

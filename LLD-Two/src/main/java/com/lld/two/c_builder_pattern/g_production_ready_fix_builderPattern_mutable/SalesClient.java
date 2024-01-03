@@ -1,4 +1,4 @@
-package com.lld.two.c_builder_pattern.f_production_ready_fix_builderPattern_mutable_object;
+package com.lld.two.c_builder_pattern.g_production_ready_fix_builderPattern_mutable;
 
 public class SalesClient {
     public static void main(String[] args) {

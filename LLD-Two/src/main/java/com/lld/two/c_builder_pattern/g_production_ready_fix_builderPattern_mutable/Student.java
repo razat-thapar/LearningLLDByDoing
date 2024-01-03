@@ -1,4 +1,4 @@
-package com.lld.two.c_builder_pattern.g_production_ready_fix_builderPattern_immutable_objects;
+package com.lld.two.c_builder_pattern.g_production_ready_fix_builderPattern_mutable;
 
 import java.util.Date;
 
@@ -15,108 +15,103 @@ public class Student {
     public static StudentBuilder getStudentBuilder(){
         return new StudentBuilder();
     }
-    private Student(StudentBuilder studentBuilder){
-        double psp;
-        if(studentBuilder==null){
-            throw new RuntimeException();
-        }
-        //validating name
-        if(studentBuilder.getName() != null) {
-            this.name = studentBuilder.getName();
-        }
-        //validating age
-        //validating gradYear
-        //validating university
-        //validating psp
-        if(studentBuilder.getPsp() != null) {
-            psp = studentBuilder.getPsp();
-            if (psp >= 0 && psp <= 100) {
-                this.psp = psp;
-            } else {
-                throw new RuntimeException();
-            }
-        }
-        //validating batch
-        if(studentBuilder.getBatch() != null) {
-            //check regex validation checks
-            this.batch = studentBuilder.getBatch();
-        }
+    private Student(){
+
     }
-
     public static class StudentBuilder {
-        private String name;
-        private Integer age;
-        private Integer gradYear;
-        private String university;
-        private Date dob;
-        private Double psp;
-        private String batch;
 
-        public Student build(){
-            return new Student(this);
-        }
+        //instead of copying the fields of Student, we will create a student object.
+        private final Student student = new Student();
 
         public StudentBuilder setName(String name) {
-            this.name = name;
+            student.name = name;
             return this;
         }
 
         public StudentBuilder setAge(Integer age) {
-            this.age = age;
+            student.age = age;
             return this;
         }
 
         public StudentBuilder setGradYear(Integer gradYear) {
-            this.gradYear = gradYear;
+            student.gradYear = gradYear;
             return this;
         }
 
         public StudentBuilder setUniversity(String university) {
-            this.university = university;
+            student.university = university;
             return this;
         }
 
         public StudentBuilder setDob(Date dob) {
-            this.dob = dob;
+            student.dob = dob;
             return this;
         }
 
         public StudentBuilder setPsp(Double psp) {
-            this.psp = psp;
+            student.psp = psp;
             return this;
         }
 
         public StudentBuilder setBatch(String batch) {
-            this.batch = batch;
+            student.batch = batch;
             return this;
         }
 
+        public Student build(){
+            Student newStudent = new Student();
+            //perform complex validations here !
+            //validating name
+            if(student.name != null) {
+                newStudent.name = student.name;
+            }
+            //validating psp
+            if (student.psp >= 0 && student.psp <= 100) {
+                newStudent.psp = student.psp;
+            } else {
+                throw new RuntimeException();
+            }
+            //validating batch
+            if(student.batch != null) {
+                //check regex validation checks
+                newStudent.batch = student.batch;
+            }
+            //validating age
+            //validating gradYear
+            //validating university
+            newStudent.age = student.age;
+            newStudent.dob = student.dob;
+            newStudent.gradYear = student.gradYear;
+            newStudent.university = student.university;
+            return newStudent;
+        }
+        //getters for Builder class.
         public String getName() {
-            return name;
+            return student.name;
         }
 
         public Integer getAge() {
-            return age;
+            return student.age;
         }
 
         public Integer getGradYear() {
-            return gradYear;
+            return student.gradYear;
         }
 
         public String getUniversity() {
-            return university;
+            return student.university;
         }
 
         public Date getDob() {
-            return dob;
+            return student.dob;
         }
 
         public Double getPsp() {
-            return psp;
+            return student.psp;
         }
 
         public String getBatch() {
-            return batch;
+            return student.batch;
         }
     }
 
@@ -148,31 +143,33 @@ public class Student {
         return batch;
     }
 
-    private void setName(String name) {
+    //Setters methods (can be removed in case of immutable object. )
+
+    public void setName(String name) {
         this.name = name;
     }
 
-    private void setAge(int age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
-    private void setGradYear(int gradYear) {
+    public void setGradYear(int gradYear) {
         this.gradYear = gradYear;
     }
 
-    private void setUniversity(String university) {
+    public void setUniversity(String university) {
         this.university = university;
     }
 
-    private void setDob(Date dob) {
+    public void setDob(Date dob) {
         this.dob = dob;
     }
 
-    private void setPsp(double psp) {
+    public void setPsp(double psp) {
         this.psp = psp;
     }
 
-    private void setBatch(String batch) {
+    public void setBatch(String batch) {
         this.batch = batch;
     }
 

@@ -1,4 +1,4 @@
-package com.lld.two.c_builder_pattern.g_production_ready_fix_builderPattern_immutable_objects;
+package com.lld.two.c_builder_pattern.h_production_ready_fix_builderPattern_immutable;
 
 public class SalesClient {
     public static void main(String[] args) {

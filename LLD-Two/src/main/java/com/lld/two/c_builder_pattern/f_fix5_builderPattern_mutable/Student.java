@@ -1,4 +1,4 @@
-package com.lld.two.c_builder_pattern.f_production_ready_fix_builderPattern_mutable_object;
+package com.lld.two.c_builder_pattern.f_fix5_builderPattern_mutable;
 
 import java.util.Date;
 

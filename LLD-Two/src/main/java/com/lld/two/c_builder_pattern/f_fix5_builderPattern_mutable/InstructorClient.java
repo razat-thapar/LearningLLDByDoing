@@ -1,4 +1,4 @@
-package com.lld.two.c_builder_pattern.f_production_ready_fix_builderPattern_mutable_object;
+package com.lld.two.c_builder_pattern.f_fix5_builderPattern_mutable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -70,20 +70,21 @@ public class InstructorClient {
 
         //Fix 4:
         //To improve fix 3 further, we can.
-        //1. provide a static method in Student class that returns a new StudentBuilder object to the client.
-        //   why static ?
-        //   Client can access the method without any object.
-//        StudentBuilder studentBuilder1 = Student.getStudentBuilder();
-//        studentBuilder1.setName("Razat");
-//        studentBuilder1.setBatch("IntermediateFeb23");
-//        studentBuilder1.setPsp(99.0);
-//        Student s4 = new Student(studentBuilder1);
-//        System.out.println(s4);
-        //CONS:
-        //Now, still, client can create studentBuilder object via StudentBuilder constructor, how to restrict that?
-        //   Make StudentBuilder constructor private but Student class won't be able to access it .
+            //1. provide a static method in Student class that returns a new StudentBuilder object to the client.
+            //   why static ?
+            //   Client can access the method without any object.
+    //        StudentBuilder studentBuilder1 = Student.getStudentBuilder();
+    //        studentBuilder1.setName("Razat");
+    //        studentBuilder1.setBatch("IntermediateFeb23");
+    //        studentBuilder1.setPsp(99.0);
+    //        Student s4 = new Student(studentBuilder1);
+    //        System.out.println(s4);
 
-        //Fix 5: Production Ready Fix
+            //CONS:
+            //Now, still, client can create studentBuilder object via StudentBuilder constructor, how to restrict that?
+            //   Make StudentBuilder constructor private but Student class won't be able to access it .
+
+        //Fix 5: Builder Pattern Part 1.
         //Earlier, StudentBuilder was only responsible to hold the attributes so that client can pass it to Student() constructor.
         //We will do the following :
         //1. We will give following responsibilities to StudentBuilder class.
@@ -108,20 +109,39 @@ public class InstructorClient {
         //                      this.name = name;
         //                      return this;
         //                 }
-        //That's it. Now, this is called Builder design pattern. 
+        //Now, this is called Builder design pattern.
 
-        //CASE 1 : Mutable Objects of Student.
-        Student s = Student.getStudentBuilder()
-                .setName("Razat")
-                .setBatch("Intermediate")
-                .setPsp(99.0)
-                .build();
-        System.out.println(s);
-        //can modify attributes here.
-        s.setAge(27);
-        System.out.println(s);
+            //PROS:
 
-        //Case 2: Immutable Object of Student.
+            // 1. On-Demand Initialization.
+            // 2. Complex Validations ( a set of attributes can be validated together.)
+            // 3. Immutability ( can be achieved easily by removing setter methods from Student)
+            // 4. Type checking of attributes of Builder class can be done at compile time ( compared to Map<String,Object>).
+            // 5. Clients can easily build Student Objects like below as Builder class have the responsibility to build Student object.
+                    //CASE 1 : Mutable Objects of Student.
+                    Student s = Student.getStudentBuilder()
+                            .setName("Razat")
+                            .setBatch("Intermediate")
+                            .setPsp(99.0)
+                            .build();
+                    System.out.println(s);
+                    //can modify attributes here.
+                    s.setAge(27);
+                    System.out.println(s);
+
+                    //Case 2: Immutable Object of Student.
+
+            //CONS:
+            // 1. Not Easily Extensible (OCP principle is violated ).
+            //  WHY ?  Duplication of Fields in Builder Class.
+            //   e.g., Prone to error while adding new fields say boolean isActive
+            //         in Student class which might miss adding in Builder class.
+
+        // FIX 6 : Remove Fields from Builder class and make Student fields as final.
+                   //Builder class can easily access fields and can set them but only once due to final keyword.
+
+
+
 
 
     }
