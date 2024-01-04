@@ -151,18 +151,18 @@ public class InstructorClient {
             // 5. Clients can easily build Student Objects like below as Builder class have the responsibility to build Student object.
             // 6. No Duplication of fields . Hence, it's easily extensible.
             //CASE 1 : Mutable Objects of Student.
-                        Student s = Student.getStudentBuilder()
-                                .setName("Razat")
-                                .setBatch("Intermediate")
-                                .setPsp(99.0)
-                                .build();
-                        System.out.println(s);
-                        //can modify attributes here.
-                        s.setAge(27);
-                        System.out.println(s);
+
 
             //Case 2: Immutable Object of Student.
-
+            Student s = Student.getStudentBuilder()
+                    .setName("Razat")
+                    .setBatch("Intermediate")
+                    .setPsp(99.0)
+                    .build();
+            System.out.println(s);
+            //can't modify attributes here.
+            //s.setAge(27); throws error.
+            System.out.println(s);
 
 
 
