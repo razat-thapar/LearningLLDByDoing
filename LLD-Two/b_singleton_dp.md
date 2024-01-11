@@ -31,6 +31,12 @@
 * `Shared resource` - Imagine you have a class that is responsible for managing the database connection. You want to make sure that only one instance of this class exists in your application. If you create multiple instances of this class, you will end up with multiple database connections, which is not what you want. Similarly, there can be a class that is responsible for managing the logging mechanism. You want to make sure that only one instance of this class exists in your application. If you create multiple instances of this class, you will end up with multiple log files, which is not what you want.
 * `Single access point` - Applications often require configuration. For example, you might want to configure the database connection parameters. You want to make sure that only one instance of this class exists in your application. A configuration class should have a single access point to the configuration parameters. If you create multiple instances of this class, you will end up with multiple configuration files.
 
+### Use Cases
+
+* `Memory Issues` -  In case of Thread Pools , Connection Pools, we might think of creating a pool for every class in our application that wants it. This is poor design as it will lead to memory wastage. 
+* `Reusability` - In case of Thread Pools, Connection Pools, the idea behind them is to make the threads , connection objects reusable. Hence, making them as a shared resource will make them reusable among different classes needing it. 
+* `Consistency` - In case of Configuration Files , we might have a single configuration file and multiple classes might be using it. So, we may think of creating an object of configuration file per class. This is a poor design as some class might edit some specific configuration which is not reflected in other classes. Fix is to make only one instance of configuration file. 
+
 ### Solution
 
 Singleton pattern is a creational design pattern that lets you ensure that a class has only one instance, while providing a global access point to this instance. To implement the Singleton patter, the following steps are required:
