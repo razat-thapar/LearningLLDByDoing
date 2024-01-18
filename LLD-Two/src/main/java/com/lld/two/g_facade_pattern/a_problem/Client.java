@@ -21,11 +21,10 @@ public class Client {
         imageEditingManager.editImage(imagePath,filterType,brightness);
 
         //Problem:
-        //1. Client only need to edit Image and should not be bothered about injecting dependencies and creating imageEditingManager.
+        //1. Client only need to edit Image and ImageEditingManager might have lots of responsibilities.
         //Requirement:
-        //2. we need to make image editing simpler for client.
+        //2. We need to hide away the internal complexities from client and provide a simpler interface. .
         //Approach:
-        //1. We can modify ImageEditingManager and make editImage static.
-        //2. We can use Facade Design Pattern.
+        //1 .Facade Design Pattern.
     }
 }
