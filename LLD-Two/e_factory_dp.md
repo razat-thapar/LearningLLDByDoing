@@ -1,5 +1,15 @@
 # Factory design pattern
 
+- [Abstract Factory and adapter design patterns](#abstract-factory-and-adapter-design-patterns)
+    - [Abstract Factory](#abstract-factory)
+        - [Advantages of Abstract Factory](#advantages-of-abstract-factory)
+        - [Implementation](#implementation)
+    - [Recap](#recap)
+    - [Design patterns in different languages](#design-patterns-in-different-languages)
+        - [Abstract Factory](#abstract-factory-1)
+            - [Python](#python)
+            - [JavaScript](#javascript)
+
 ## Key terms
 ### Simple factory
 > A simple factory is a static method that returns an instance of a class. It is a static method because it does not need to be instantiated. It is a factory because it creates an instance of a class.
@@ -91,7 +101,9 @@ The complete steps to implement the factory method pattern are:
 2. `Child factory class` - Create a child class that extends the base factory class and overrides the factory method to create objects of its own type.
 3. `Request` - Request an object from the factory class without having to know the class of the object that will be returned.
 
-### Abstract Factory
+# Abstract Factory design pattern
+
+## Abstract Factory
 
 > The abstract factory pattern is a creational pattern that provides an interface for creating families of related or dependent objects without specifying their concrete classes.
 
@@ -156,12 +168,12 @@ Teacher teacher = factory.createTeacher("John", "Doe");
 
 The class `ClassroomFactory` becomes our abstract factory that essentially is a factory of factories.
 
-#### Advantages of Abstract Factory
+### Advantages of Abstract Factory
 * `Isolate concrete classes` - The client code is not coupled to the concrete classes of the objects that it creates.
 * `Easy to exchange product families` - The client code can request an object from the factory class without having to know the class of the object that will be returned. This makes it easy to exchange product families.
 * `Promotes consistency among products` - The client code can request an object from the factory class without having to know the class of the object that will be returned. This makes it easy to maintain consistency among products.
 
-#### Implementation
+### Implementation
 1. `Abstract product interface` - Create an interface for the products that will be created by the factory.
 ```java
 interface Button {
@@ -206,7 +218,7 @@ FormFactory factory = new RoundedFormFactory();
 Button button = factory.createButton();
 ```
 
-### Recap
+## Recap
 * The factory pattern is a creational design pattern that can be used to create objects without having to specify the exact class of the object that will be created.
 * It reduces the coupling between the client code and the class of the object that it is creating.
 * Simple factory - The factory class contains a static method for creating objects. This technique is easy to implement, but it is not extensible and reusable. It violates the open-closed principle and the single responsibility principle.
@@ -215,7 +227,6 @@ Button button = factory.createButton();
 ## Design patterns in different languages
 
 ### Factory
-
 #### Python
 * [Factory - I](https://realpython.com/factory-method-python/)
 * [Factory - II](https://refactoring.guru/design-patterns/factory-method/python/example)
@@ -231,3 +242,16 @@ Button button = factory.createButton();
 * [Factory - III](https://www.theodinproject.com/lessons/node-path-javascript-factory-functions-and-the-module-pattern)
 * [Factory - IV](https://javascript.plainenglish.io/design-patterns-with-typescript-factory-method-cb190d7ce275)
 * [Factory - V](https://www.digitalocean.com/community/tutorials/js-factory-pattern)
+
+### Abstract Factory
+#### Python
+* [Abstract Factory - I](https://refactoring.guru/design-patterns/abstract-factory/python/example)
+* [Abstract Factory - II](https://stackabuse.com/abstract-factory-design-pattern-in-python/)
+* [Abstract Factory - III](https://python-patterns.guide/gang-of-four/abstract-factory/)
+* [Abstract Factory - IV](https://python.plainenglish.io/abstract-factory-design-pattern-in-python-9a3de77d01eb)
+
+#### JavaScript
+* [Abstract Factory - I - Typescript](https://refactoring.guru/design-patterns/abstract-factory/typescript/example#example-0)
+* [Abstract Factory - II](https://dev.to/carlillo/understanding-design-patterns-abstract-factory-23e7)
+* [Abstract Factory - III](https://gist.github.com/OriginUnknown/d2fc38c8412b52ece8de)
+
