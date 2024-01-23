@@ -1,6 +1,7 @@
 package com.lld.one.k_streams_and_lambdas.e_streams;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -33,8 +34,7 @@ public class Main {
                 .collect(Collectors.toList());
         System.out.println(numbers4); //numbers4 weren't modified due to collect method.
         System.out.println(ans4); //all modifications were stored in ans4
-
-
+        
 
     }
 }
