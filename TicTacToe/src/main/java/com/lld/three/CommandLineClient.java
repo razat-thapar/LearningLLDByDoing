@@ -36,13 +36,21 @@ public class CommandLineClient {
         Scanner sc = new Scanner(System.in);
         int size = sc.nextInt();
         int players;
-        do{
+        while(true){
             System.out.println("Please provide no of Players : ");
             players = sc.nextInt();
-            if(players>=size){
-                throw new InvalidPlayerCountException("Re-enter : Player count exceeds board size, only size-1 players allowed!");
+            try{
+                if(players>=size){
+                    throw new InvalidPlayerCountException("Re-enter : Player count exceeds board size, only size-1 players allowed!");
+                }
+                if(players==1){
+                    throw new InvalidPlayerCountException("Re-enter : Atleast 2 players are required to play TicTacToe!");
+                }
+                break;
+            }catch(Exception e){
+                System.out.println(e.getMessage());
             }
-        }while(players >= size);
+        }
         //player details .
 
         List<Player> playerList = new ArrayList<>();
@@ -116,5 +124,11 @@ public class CommandLineClient {
         }else{
             System.out.println("The Game Ended in Draw!");
         }
+        //TODO: Validate
+        //TODO: Bot Strategies
+        //TODO: Anti-Diag Winning Strategy.
+        //TODO: Giving user an option to choose default vs custom winning strategy.
+        //TODO: Undo operation.
+        //TODO: Replay the moves.
     }
 }
