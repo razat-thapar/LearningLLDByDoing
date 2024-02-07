@@ -1,9 +1,8 @@
 package com.lld.one.g_synchronization.c_best_fix_using_synchronized_keyword;
 
-import java.util.concurrent.locks.Lock;
 public class Subtractor implements Runnable{
-    private int iterations;
-    private Counter counter;
+    private final int iterations;
+    private final Counter counter;
 
     public Subtractor(Counter counter, int iterations){
         this.counter  = counter;
