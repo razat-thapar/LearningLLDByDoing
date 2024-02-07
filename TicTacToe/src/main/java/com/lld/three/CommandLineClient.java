@@ -127,6 +127,9 @@ public class CommandLineClient {
         //TODO: Validate
         //TODO: Bot Strategies
         //TODO: Anti-Diag Winning Strategy.
+        //TODO: makeMove() method of HumanPlayer is tightly coupled with input type, So, we can use strategy pattern to fix this issue.
+        //      <<HumanPlayerInputStrategy>>  Move makeMove(Board board)
+        //      CommandLineInputStrategy  will use command Line interface to implement.
         //TODO: Giving user an option to choose default vs custom winning strategy.
         //TODO: Undo operation.
         //TODO: Replay the moves.
