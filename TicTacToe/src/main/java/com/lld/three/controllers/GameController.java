@@ -11,7 +11,7 @@ public class GameController {
         this.gameService = gameService;
     }
     public Game initiateGame(InitiateGameRequestDTO initiateGameRequestDTO){
-        return gameService.buildGame(initiateGameRequestDTO);
+        return gameService.buildGame("TicTacToe",initiateGameRequestDTO.getSize(),initiateGameRequestDTO.getWinningStrategyList(),initiateGameRequestDTO.getPlayerList());
     }
 
     public GameState startGame(Game game){

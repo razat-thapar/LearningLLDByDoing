@@ -7,36 +7,37 @@ import com.lld.three.models.BotPlayer;
 import com.lld.three.models.HumanPlayer;
 import com.lld.three.models.Player;
 import com.lld.three.models.User;
+import com.lld.three.models.enums.DifficultyLevel;
 import com.lld.three.models.factories.BotMovingStrategyFactory;
 
 public class PlayerService {
-    public Player createHumanPlayer(HumanPlayerRequestDTO humanPlayerRequestDTO){
+    public Player createHumanPlayer(String name, Character symbol){
         //we can perform complex validations here.
         return HumanPlayer
                 .builder()
                 .user(
                         User
                                 .builder()
-                                .name(humanPlayerRequestDTO.getName())
+                                .name(name)
                                 .build()
                 )
-                .symbol(humanPlayerRequestDTO.getSymbol())
+                .symbol(symbol)
                 .build();
     }
 
-    public Player createBotPlayer(BotPlayerRequestDTO botPlayerRequestDTO){
+    public Player createBotPlayer(String name, Character symbol, DifficultyLevel difficultyLevel){
         //we can perform complex validations here.
         return BotPlayer
                 .builder()
-                .difficultyLevel(botPlayerRequestDTO.getDifficultyLevel())
-                .botMovingStrategy(BotMovingStrategyFactory.createBotMovingStrategy(botPlayerRequestDTO.getDifficultyLevel()))
+                .difficultyLevel(difficultyLevel)
+                .botMovingStrategy(BotMovingStrategyFactory.createBotMovingStrategy(difficultyLevel))
                 .user(
                         User
                                 .builder()
-                                .name(botPlayerRequestDTO.getName())
+                                .name(name)
                                 .build()
                 )
-                .symbol(botPlayerRequestDTO.getSymbol())
+                .symbol(symbol)
                 .build();
     }
 }

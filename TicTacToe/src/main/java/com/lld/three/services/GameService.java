@@ -12,8 +12,8 @@ public class GameService {
     public GameService(BoardService boardService){
         this.boardService = boardService;
     }
-    public Game buildGame(InitiateGameRequestDTO initiateGameRequestDTO){
-        return new Game("TicTacToe",initiateGameRequestDTO.getSize(),initiateGameRequestDTO.getWinningStrategyList(),initiateGameRequestDTO.getPlayerList());
+    public Game buildGame(String name, int size,List<WinningStrategy> winningStrategyList,List<Player> playerList){
+        return new Game(name,size,winningStrategyList,playerList);
     }
     public GameState startGame(Game game){
         //change the state of game to IN_PROGRESS.
