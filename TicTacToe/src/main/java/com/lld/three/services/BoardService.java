@@ -7,7 +7,7 @@ import com.lld.three.models.Player;
 import com.lld.three.models.enums.CellState;
 
 public class BoardService {
-    public void updateBoardCell(Board board, Move move, Player player){
+    public static void updateBoardCell(Board board, Move move, Player player){
         Cell cell = board.getCells().get(move.getRow()).get(move.getCol());
         //update player and cellstate.
         cell.setCellState(CellState.OCCUPIED);

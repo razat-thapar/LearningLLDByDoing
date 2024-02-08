@@ -1,33 +1,31 @@
-package com.lld.three.models.strategies.winning;
+package com.lld.three.strategies.winning;
 
 import com.lld.three.models.Board;
 import com.lld.three.models.Cell;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class NInAColWinningStrategy implements WinningStrategy{
-    private List<Map<Character,Integer>> colsList;
+public class NInARowWinningStrategy implements WinningStrategy{
+    private Map<Character,Integer>[] rowsList;
     private int size;
-    public NInAColWinningStrategy(int size){
+    public NInARowWinningStrategy(int size){
         this.size = size;
-        this.colsList = new ArrayList<>();
+        this.rowsList = new HashMap[size];
         //initialize size count of HashMap<>
         for(int i=0;i<size;i++){
-            colsList.add(new HashMap<>());
+            rowsList[i]= new HashMap<>();
         }
     }
     @Override
     public boolean checkWin(Board board, Cell currentCell) {
-        //approach: using currentCell col  and symbol, we will iterate over current col and check if every cell is non-empty and have same symbol.
+        //approach: using currentCell row  and symbol, we will iterate over current row and check if every cell is non-empty and have same symbol.
         //TC: O(N) SC: O(1)
-        //idea 2: Maintain HashMap<Symbol,Integer> for all N cols and check if after adding currentCell, it have count = N or not for that col.
+        //idea 2: Maintain HashMap<Symbol,Integer> for all N rows and check if after adding currentCell, it have count = N or not for that row.
         //TC: O(1) SC: O(N*players)
 
         //update the rowsList using currentCell.
-        Map<Character,Integer> map = colsList.get(currentCell.getCol());
+        Map<Character,Integer> map = rowsList[currentCell.getRow()];
         Character currentSymbol = currentCell.getSymbol();
         if(map.containsKey(currentSymbol)){
             map.put(currentSymbol,1 + map.get(currentSymbol));

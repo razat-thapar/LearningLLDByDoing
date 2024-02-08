@@ -10,11 +10,8 @@ import com.lld.three.models.*;
 import com.lld.three.models.enums.DifficultyLevel;
 import com.lld.three.models.enums.GameState;
 import com.lld.three.models.enums.WinningStrategyType;
-import com.lld.three.models.factories.WinningStrategyFactory;
-import com.lld.three.models.strategies.winning.WinningStrategy;
-import com.lld.three.services.BoardService;
-import com.lld.three.services.GameService;
-import com.lld.three.services.PlayerService;
+import com.lld.three.factories.WinningStrategyFactory;
+import com.lld.three.strategies.winning.WinningStrategy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,18 +19,16 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CommandLineClient {
+    private static Scanner sc = new Scanner(System.in);
+    private static PlayerController playerController = new PlayerController();
+    private static GameController gameController = new GameController();
     public static void main(String[] args) {
         //Command Line Client.
-        PlayerService playerService = new PlayerService();
-        PlayerController playerController = new PlayerController(playerService);
-        BoardService boardService = new BoardService();
-        GameService gameService = new GameService(boardService);
-        GameController gameController = new GameController(gameService);
+
         //This will interact with players and interact with controller.
         System.out.println("Welcome to TicTacToe Commandline Interface!");
         //ask user to provide size of board
         System.out.println("Please provide the size of Board: ");
-        Scanner sc = new Scanner(System.in);
         int size = sc.nextInt();
         int players;
         while(true){
@@ -52,7 +47,40 @@ public class CommandLineClient {
             }
         }
         //player details .
+        List<Player> playerList = askPlayerDetails(players);
 
+        //Winning Strategy
+        List<WinningStrategy> winningStrategyList = askWinningStrategy(size);
+
+        //initiate the game.
+        System.out.println("Creating a new Tic Tac Toe Game...");
+        Game game = gameController.initiateGame(InitiateGameRequestDTO
+                .builder()
+                .playerList(playerList)
+                .winningStrategyList(winningStrategyList)
+                .size(size)
+                .build());
+        //start the game.
+        //Steps:
+        //1. we have to alternate between players until board is full.
+        //2. we have to execute nextMove() behavior of each player.
+        //2. for human player, we need to take row,col from the command line and pass to player.
+        //3. then checkWin() will be triggered after nextMove()
+        //start --> while(board.hasEmptyCells()){
+        //  game.nextMove()
+        // }
+        GameState gameState = gameController.startGame(game);
+        //display the final board.
+        System.out.println(game.getBoard());
+        if(gameState==GameState.SUCCESS){
+            System.out.printf("%s won the game!%n",game.getWinner());
+        }else{
+            System.out.println("The Game Ended in Draw!");
+        }
+        //TODO: Undo operation.
+        //TODO: Replay the moves.
+    }
+    private static List<Player> askPlayerDetails(int players){
         List<Player> playerList = new ArrayList<>();
         for(int i=0;i<players;i++){
             System.out.printf("Please enter details of Players : %d %n",i+1);
@@ -84,54 +112,34 @@ public class CommandLineClient {
                 playerList.add(player);
             }
         }
-        //pick the winning strategies.
-        System.out.println("Please choose the winning strategies!");
-        Arrays.stream(WinningStrategyType.values()).forEach((type)->{
-            System.out.printf(" %d : %s %n",type.ordinal(),type);
-        });
-        System.out.println("Please enter the count followed by corresponding strategy numbers in same line!");
-        int count = sc.nextInt();
+        return playerList;
+    }
+    private static List<WinningStrategy> askWinningStrategy(int size){
+        //option to choose default winning or custom winning strategies.
+        System.out.printf("Do you want custom winning strategy? y or n %n");
+        char ch = sc.next().charAt(0);
         List< WinningStrategy> winningStrategyList = new ArrayList<>();
-        WinningStrategyType type;
-        while(count>0){
-            //get the enum type from ordinal.
-            type = WinningStrategyType.values()[sc.nextInt()];
-            winningStrategyList.add(WinningStrategyFactory.createWinningStrategy(type,size));
-            count--;
-        }
-        //initiate the game.
-        System.out.println("Creating a new Tic Tac Toe Game...");
-        Game game = gameController.initiateGame(InitiateGameRequestDTO
-                .builder()
-                .playerList(playerList)
-                .winningStrategyList(winningStrategyList)
-                .size(size)
-                .build());
-        //start the game.
-        //Steps:
-        //1. we have to alternate between players until board is full.
-        //2. we have to execute nextMove() behavior of each player.
-        //2. for human player, we need to take row,col from the command line and pass to player.
-        //3. then checkWin() will be triggered after nextMove()
-        //start --> while(board.hasEmptyCells()){
-        //  game.nextMove()
-        // }
-        GameState gameState = gameController.startGame(game);
-        //display the final board.
-        System.out.println(game.getBoard());
-        if(gameState==GameState.SUCCESS){
-            System.out.printf("%s won the game!%n",game.getWinner());
+        if(ch=='y'){
+            //pick the winning strategies.
+            System.out.println("Please choose the winning strategies!");
+            Arrays.stream(WinningStrategyType.values()).forEach((type)->{
+                System.out.printf(" %d : %s %n",type.ordinal(),type);
+            });
+            System.out.println("Please enter the count followed by corresponding strategy numbers in same line!");
+            int count = sc.nextInt();
+            WinningStrategyType type;
+            while(count>0){
+                //get the enum type from ordinal.
+                type = WinningStrategyType.values()[sc.nextInt()];
+                winningStrategyList.add(WinningStrategyFactory.createWinningStrategy(type,size));
+                count--;
+            }
         }else{
-            System.out.println("The Game Ended in Draw!");
+            //add all winning strategies available.
+            Arrays.stream(WinningStrategyType.values()).forEach((type)->{
+                winningStrategyList.add(WinningStrategyFactory.createWinningStrategy(type,size));
+            });
         }
-        //TODO: Validate
-        //TODO: Bot Strategies
-        //TODO: Anti-Diag Winning Strategy.
-        //TODO: makeMove() method of HumanPlayer is tightly coupled with input type, So, we can use strategy pattern to fix this issue.
-        //      <<HumanPlayerInputStrategy>>  Move makeMove(Board board)
-        //      CommandLineInputStrategy  will use command Line interface to implement.
-        //TODO: Giving user an option to choose default vs custom winning strategy.
-        //TODO: Undo operation.
-        //TODO: Replay the moves.
+        return winningStrategyList;
     }
 }

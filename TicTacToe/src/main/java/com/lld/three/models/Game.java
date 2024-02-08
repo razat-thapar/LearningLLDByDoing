@@ -1,6 +1,6 @@
 package com.lld.three.models;
 import com.lld.three.models.enums.GameState;
-import com.lld.three.models.strategies.winning.WinningStrategy;
+import com.lld.three.strategies.winning.WinningStrategy;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,5 +24,9 @@ public class Game {
         this.winningStrategyList = winningStrategyList;
         this.gameStatus = GameState.INITIAL;
         this.nextPlayerIndex = 0; //first player.
+    }
+    public void updateNextPlayerIndex(){
+        nextPlayerIndex = (nextPlayerIndex+1)%playerList.size();
+        this.setNextPlayerIndex(nextPlayerIndex);
     }
 }

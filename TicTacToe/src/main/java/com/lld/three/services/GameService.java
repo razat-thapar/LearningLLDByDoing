@@ -1,23 +1,21 @@
 package com.lld.three.services;
 
-import com.lld.three.dtos.InitiateGameRequestDTO;
 import com.lld.three.models.*;
 import com.lld.three.models.enums.GameState;
-import com.lld.three.models.strategies.winning.WinningStrategy;
+import com.lld.three.strategies.winning.WinningStrategy;
 
 import java.util.List;
 
 public class GameService {
-    private BoardService boardService;
-    public GameService(BoardService boardService){
-        this.boardService = boardService;
+    public static Game buildGame(String name, int size,List<WinningStrategy> winningStrategyList,List<Player> playerList){
+        return new Game(name  ,size,winningStrategyList,playerList);
     }
-    public Game buildGame(String name, int size,List<WinningStrategy> winningStrategyList,List<Player> playerList){
-        return new Game(name,size,winningStrategyList,playerList);
-    }
-    public GameState startGame(Game game){
+    public static GameState startGame(Game game){
         //change the state of game to IN_PROGRESS.
         game.setGameStatus(GameState.IN_PROGRESS);
+        return executeGame(game);
+    }
+    private static GameState executeGame(Game game){
         Board board = game.getBoard();
         //will keep checking.
         while(board.hasEmptyCells()){
@@ -38,7 +36,7 @@ public class GameService {
         return GameState.DRAW;
     }
 
-    private Move makeMove(Game game){
+    private static Move makeMove(Game game){
         //get the nextPlayer.
         int nextPlayerIndex = game.getNextPlayerIndex();
         List<Player> playerList = game.getPlayerList();
@@ -47,13 +45,12 @@ public class GameService {
         //invoke makeMove() behavior of nextPlayer.
         Move move = nextPlayer.makeMove(game.getBoard());
         //update board.
-        boardService.updateBoardCell(game.getBoard(),move,nextPlayer);
+        BoardService.updateBoardCell(game.getBoard(),move,nextPlayer);
         //update nextPlayerIndex()
-        nextPlayerIndex = (nextPlayerIndex+1)%playerList.size();
-        game.setNextPlayerIndex(nextPlayerIndex);
+        game.updateNextPlayerIndex();
         return move;
     }
-    private boolean checkWin(Game game, Move move){
+    private static boolean checkWin(Game game, Move move){
         Board board = game.getBoard();
         Cell cell = board.getCells().get(move.getRow()).get(move.getCol());
         for(WinningStrategy winningStrategy : game.getWinningStrategyList()){

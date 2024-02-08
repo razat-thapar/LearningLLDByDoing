@@ -1,11 +1,11 @@
-package com.lld.three.models.factories;
+package com.lld.three.factories;
 
 import com.lld.three.exceptions.InvalidDifficultyLevelException;
 import com.lld.three.models.enums.DifficultyLevel;
-import com.lld.three.models.strategies.bot.BotMovingStrategy;
-import com.lld.three.models.strategies.bot.GptMovingStrategy;
-import com.lld.three.models.strategies.bot.MinMaxMovingStrategy;
-import com.lld.three.models.strategies.bot.RandomMovingStrategy;
+import com.lld.three.strategies.bot.BotMovingStrategy;
+import com.lld.three.strategies.bot.GptMovingStrategy;
+import com.lld.three.strategies.bot.MinMaxMovingStrategy;
+import com.lld.three.strategies.bot.RandomMovingStrategy;
 
 public class BotMovingStrategyFactory {
     public static BotMovingStrategy createBotMovingStrategy(DifficultyLevel difficultyLevel){

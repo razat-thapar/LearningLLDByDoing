@@ -1,4 +1,4 @@
-package com.lld.three.models.strategies.winning;
+package com.lld.three.strategies.winning;
 
 import com.lld.three.models.Board;
 import com.lld.three.models.Cell;

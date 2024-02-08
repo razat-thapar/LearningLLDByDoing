@@ -1,9 +1,7 @@
 package com.lld.three.models;
 
 import com.lld.three.models.enums.DifficultyLevel;
-import com.lld.three.models.strategies.bot.BotMovingStrategy;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import com.lld.three.strategies.bot.BotMovingStrategy;
 import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class BotPlayer extends Player{

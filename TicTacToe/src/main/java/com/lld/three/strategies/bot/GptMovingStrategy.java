@@ -1,10 +1,9 @@
-package com.lld.three.models.strategies.bot;
+package com.lld.three.strategies.bot;
 
 import com.lld.three.models.Board;
 import com.lld.three.models.Move;
 
 public class GptMovingStrategy implements BotMovingStrategy {
-    //TODO: Implement medium strategy
 
     private static GptMovingStrategy instance = null;
     private GptMovingStrategy(){
@@ -24,6 +23,7 @@ public class GptMovingStrategy implements BotMovingStrategy {
     }
     @Override
     public Move makeMove(Board board) {
+        //TODO: implement Hard bot strategy.
         return null;
     }
 }

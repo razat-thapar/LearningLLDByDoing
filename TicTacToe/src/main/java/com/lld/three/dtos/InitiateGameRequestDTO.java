@@ -1,7 +1,7 @@
 package com.lld.three.dtos;
 
 import com.lld.three.models.Player;
-import com.lld.three.models.strategies.winning.WinningStrategy;
+import com.lld.three.strategies.winning.WinningStrategy;
 import lombok.Builder;
 import lombok.Getter;
 

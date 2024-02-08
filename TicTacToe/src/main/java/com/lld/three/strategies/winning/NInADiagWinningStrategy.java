@@ -1,4 +1,4 @@
-package com.lld.three.models.strategies.winning;
+package com.lld.three.strategies.winning;
 
 import com.lld.three.models.Board;
 import com.lld.three.models.Cell;
@@ -7,12 +7,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NInADiagWinningStrategy implements WinningStrategy{
-    private Integer size;
     private Map<Character,Integer> map ;
-    public NInADiagWinningStrategy(int size){
+    public NInADiagWinningStrategy(){
         //intiailize map.
         map = new HashMap<>();
-        this.size = size;
     }
 
     @Override
@@ -37,7 +35,7 @@ public class NInADiagWinningStrategy implements WinningStrategy{
             map.put(currentSymbol,1);
         }
         //check if count == size.
-        if(map.get(currentSymbol) == size){
+        if(map.get(currentSymbol) == board.getSize()){
             return true;
         }else{
             return false;

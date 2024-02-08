@@ -1,4 +1,4 @@
-package com.lld.three.models.strategies.bot;
+package com.lld.three.strategies.bot;
 
 import com.lld.three.models.Board;
 import com.lld.three.models.Cell;
@@ -47,6 +47,13 @@ public class RandomMovingStrategy implements BotMovingStrategy {
                     }
                 }
             }
+//            cells.stream().forEach((rowCells)->{
+//                rowCells.stream().forEach((cell)->{
+//                    if(cell.getCellState()==CellState.EMPTY){
+//                        availableMoveList.add(new Move(cell.getRow(),cell.getCol()));
+//                    }
+//                });
+//            });
         }
         //remove all non-empty cells.
         Move move;
