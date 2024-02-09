@@ -417,11 +417,30 @@ classDiagram
   
     HumanPlayerInputStrategy <|-- CommandLineInputStrategy
   ```
-* To support Undo operation.
-  * Maintain Stack<Move> in Game class 
-  * We can ask after every move if they want to undo?
 
 ## Side assignment (Feature Suggestions)
 * A common requirement in games is to undo the last move. How would you design your system to support this requirement?
 * Replay of Moves. 
-* Create this as a new SpringBoot application with API's exposed so that in future I can connect to Frontend. So, that I can put it in my resume. 
+### To support Undo last move operation for only human player.
+* **BruteForce :** Maintain Stack<Move> in Game class
+  * TC : O(1)  SC: O(N^2)
+* Can we optimize it further ?
+* Yes, we only need to undo Last move after every move of a human player, we don't need to maintain Stack<Move> & just need recent move.
+* **Idea 2:** Maintain Move recentMove & revert below changes
+  * game.nextPlayerIndex
+  * Board state e.g., cellState , cellPlayer , countEmptyCells etc..
+  * TC: O(1) SC: O(1)
+
+### To Support Replay of Moves after game ends.
+* **BruteForce:** Maintain List<Board> snapshots --> deep copies of Board object for a game & print the board for each snapshot.
+  * TC: O(N^4) SC: O(N^2)
+  * Can we optimize it further ?
+  * Yes, We need to only display Board & Symbol for a cell.
+* **Idea 2:** Maintain List<Cell> moves for a game & traverse this list & populate each cell & display board for each move.
+  * TC: O(N^4) SC: O(N^2)
+  * Can we optimize it further ?
+  * Yes, Do we really need to store List<Cell> or we just need (row,col) info of a cell? We can get other info about a cell using board instance of a game.
+* **Idea 3:** Maintain List<Move> moves for a game & create a new board instance &  traverse this list & populate cell info in board instance & display board for every move.
+  * TC: O(N^4) SC: O(N^2)
+
+### Create this as a new SpringBoot application with API's exposed so that in future I can connect to Frontend. So, that I can put it in my resume. 
