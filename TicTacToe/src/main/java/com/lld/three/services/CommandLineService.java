@@ -9,7 +9,7 @@ import com.lld.three.models.enums.PlayerType;
 import java.util.Scanner;
 
 public class CommandLineService {
-    static void askIfNeedToUndoLastMove(Game game, Move recentMove) {
+    static boolean askIfNeedToUndoLastMove(Game game, Move recentMove) {
         //check if it's human player.
         Cell currentCell = game.getBoard().getCells().get(recentMove.getRow()).get(recentMove.getCol());
         Player player = currentCell.getPlayer();
@@ -21,7 +21,10 @@ public class CommandLineService {
             char ch = sc.next().charAt(0);
             if (ch == 'y') {
                 GameService.undoLastMove(game, recentMove);
+                return true;
             }
         }
+        return false;
     }
+
 }

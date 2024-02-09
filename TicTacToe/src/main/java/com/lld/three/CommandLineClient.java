@@ -6,6 +6,7 @@ import com.lld.three.dtos.BotPlayerRequestDTO;
 import com.lld.three.dtos.HumanPlayerRequestDTO;
 import com.lld.three.dtos.InitiateGameRequestDTO;
 import com.lld.three.exceptions.DuplicateSymbolException;
+import com.lld.three.exceptions.InvalidDifficultyLevelException;
 import com.lld.three.exceptions.InvalidPlayerCountException;
 import com.lld.three.models.*;
 import com.lld.three.models.enums.DifficultyLevel;
@@ -69,7 +70,30 @@ public class CommandLineClient {
         }else{
             System.out.println("The Game Ended in Draw!");
         }
-        //TODO: Replay the moves.
+        askReplay(game);
+    }
+    private static void askReplay(Game game){
+        System.out.println("Do you want to see the replay ? y or n");
+        char ch = sc.next().charAt(0);
+        if(ch=='y'){
+            List<String> snapshots = gameController.replayGame(game);
+            int i=1;
+            for(String snapshot : snapshots){
+                System.out.printf("Snapshot: %d%n %s %n",i++,snapshot);
+            }
+        }
+    }
+    private static Integer askDifficultyLevel(){
+        Integer level =null;
+        System.out.printf("Difficulty Level of Bot ? Press %n");
+        Arrays.stream(DifficultyLevel.values()).forEach((lvl)->{
+            System.out.printf("%d : %s %n",lvl.ordinal(),lvl);
+        });
+        level = sc.nextInt();
+        if(level >= DifficultyLevel.values().length || level <0){
+            throw new InvalidDifficultyLevelException("Please enter valid difficulty level!");
+        }
+        return level;
     }
     private static Integer askPlayerCount(int boardSize) throws InvalidPlayerCountException{
         System.out.println("Please provide no of Players : ");
@@ -110,11 +134,14 @@ public class CommandLineClient {
             System.out.println("Is it a bot or not ? y or n");
             String isBot = sc.next();
             if(isBot.equals("y")){
-                System.out.printf("Difficulty Level of Bot ? Press %n");
-                Arrays.stream(DifficultyLevel.values()).forEach((lvl)->{
-                    System.out.printf("%d : %s %n",lvl.ordinal(),lvl);
-                });
-                int level = sc.nextInt();
+                Integer level=null;
+                while(level==null){
+                    try{
+                        level = askDifficultyLevel();
+                    }catch(InvalidDifficultyLevelException e){
+                        System.out.println(e.getLocalizedMessage());
+                    }
+                }
                 Player player = playerController.createBotPlayer(BotPlayerRequestDTO
                         .builder()
                         .difficultyLevel(DifficultyLevel.values()[level])

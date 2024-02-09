@@ -16,6 +16,7 @@ public class Game {
     private List<WinningStrategy> winningStrategyList;
     private int nextPlayerIndex ; // to alternate between players.
     private Player winner = null; //to store the winner of the game.
+    private List<Move> moves ; //to store list of cell's row,col in playing order for replay.
     //to create a game instance
     public Game(String name , int size, List<WinningStrategy> winningStrategyList, List<Player> playerList){
         this.name = name;
@@ -24,6 +25,7 @@ public class Game {
         this.winningStrategyList = winningStrategyList;
         this.gameStatus = GameState.INITIAL;
         this.nextPlayerIndex = 0; //first player.
+        this.moves = new ArrayList<>();
     }
     public void moveNextPlayerIndex(){
         nextPlayerIndex = (nextPlayerIndex+1)%playerList.size();

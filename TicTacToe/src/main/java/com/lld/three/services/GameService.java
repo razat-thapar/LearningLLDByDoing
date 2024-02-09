@@ -1,9 +1,11 @@
 package com.lld.three.services;
 
 import com.lld.three.models.*;
+import com.lld.three.models.enums.CellState;
 import com.lld.three.models.enums.GameState;
 import com.lld.three.strategies.winning.WinningStrategy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameService {
@@ -23,8 +25,13 @@ public class GameService {
             System.out.println(board.displayBoard());
             //trigger makeMove for the game.
             Move move = makeMove(game);
+            //add this move in List<Move>
+            game.getMoves().add(move);
             //ask human player if need to undo last move?
-            CommandLineService.askIfNeedToUndoLastMove(game,move);
+            if(CommandLineService.askIfNeedToUndoLastMove(game,move)){
+                //remove last move from List<Move> if human did undo.
+                game.getMoves().remove(game.getMoves().size()-1);
+            }
             //TriggerCheckwin()
             if(checkWin(game,move)){
                 game.setGameStatus(GameState.SUCCESS);
@@ -67,6 +74,22 @@ public class GameService {
             }
         }
         return false;
+    }
+
+    public static List<String> replayGame(Game game){
+        List<String> snapshots = new ArrayList<>();
+        //replay board.
+        Board replayBoard = new Board(game.getBoard().getSize());
+        //game board.
+        Board gameBoard = game.getBoard();
+        Cell cell;
+        for(Move move : game.getMoves()){
+            cell = replayBoard.getCells().get(move.getRow()).get(move.getCol());
+            //set symbol.
+            cell.setSymbol(gameBoard.getCells().get(move.getRow()).get(move.getCol()).getSymbol());
+            snapshots.add(replayBoard.displayBoard());
+        }
+        return snapshots;
     }
 
 
