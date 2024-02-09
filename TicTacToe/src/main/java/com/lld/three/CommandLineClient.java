@@ -73,7 +73,7 @@ public class CommandLineClient {
         askReplay(game);
     }
     private static void askReplay(Game game){
-        System.out.println("Do you want to see the replay ? y or n");
+        System.out.println("\nDo you want to see the replay ? y or n");
         char ch = sc.next().charAt(0);
         if(ch=='y'){
             List<String> snapshots = gameController.replayGame(game);
