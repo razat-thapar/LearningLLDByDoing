@@ -63,7 +63,10 @@ public class Board {
                     sb.append(singleTab);
                 }
             }
-            if(row!=-1){sb.append(pipe);}
+            if(row!=-1){
+                sb.append(pipe);
+                sb.append("\n");
+            }
             sb.append("\n");
         }
         return sb.toString();
