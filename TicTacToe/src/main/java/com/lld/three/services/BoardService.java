@@ -16,4 +16,13 @@ public class BoardService {
         //decrement board empty cell count.
         board.decrementEmptyCells();
     }
+    public static void emptyBoardCell(Board board, Move move){
+        Cell cell = board.getCells().get(move.getRow()).get(move.getCol());
+        //update player and cellstate.
+        cell.setCellState(CellState.EMPTY);
+        cell.setSymbol(' ');
+        cell.setPlayer(null);
+        //increment board empty cell count.
+        board.incrementEmptyCells();
+    }
 }

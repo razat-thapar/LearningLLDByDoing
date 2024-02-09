@@ -57,6 +57,7 @@ public class Board {
     public void decrementEmptyCells(){
         this.emptyCells--;
     }
+    public void incrementEmptyCells() { this.emptyCells++;}
     @Override
     public String toString(){
         return displayBoard();

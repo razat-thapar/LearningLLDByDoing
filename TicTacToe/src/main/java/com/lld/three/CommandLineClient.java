@@ -5,6 +5,7 @@ import com.lld.three.controllers.PlayerController;
 import com.lld.three.dtos.BotPlayerRequestDTO;
 import com.lld.three.dtos.HumanPlayerRequestDTO;
 import com.lld.three.dtos.InitiateGameRequestDTO;
+import com.lld.three.exceptions.DuplicateSymbolException;
 import com.lld.three.exceptions.InvalidPlayerCountException;
 import com.lld.three.models.*;
 import com.lld.three.models.enums.DifficultyLevel;
@@ -13,15 +14,13 @@ import com.lld.three.models.enums.WinningStrategyType;
 import com.lld.three.factories.WinningStrategyFactory;
 import com.lld.three.strategies.winning.WinningStrategy;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class CommandLineClient {
     private static Scanner sc = new Scanner(System.in);
     private static PlayerController playerController = new PlayerController();
     private static GameController gameController = new GameController();
+    private static Set<Character> uniqueSymbolSet = new HashSet<>();
     public static void main(String[] args) {
         //Command Line Client.
 
@@ -30,20 +29,13 @@ public class CommandLineClient {
         //ask user to provide size of board
         System.out.println("Please provide the size of Board: ");
         int size = sc.nextInt();
-        int players;
-        while(true){
-            System.out.println("Please provide no of Players : ");
-            players = sc.nextInt();
+        Integer players=null;
+        //ask player count.
+        while(players==null){
             try{
-                if(players>=size){
-                    throw new InvalidPlayerCountException("Re-enter : Player count exceeds board size, only size-1 players allowed!");
-                }
-                if(players==1){
-                    throw new InvalidPlayerCountException("Re-enter : Atleast 2 players are required to play TicTacToe!");
-                }
-                break;
+                players = askPlayerCount(size);
             }catch(Exception e){
-                System.out.println(e.getMessage());
+                System.out.println(e.getLocalizedMessage());
             }
         }
         //player details .
@@ -77,8 +69,29 @@ public class CommandLineClient {
         }else{
             System.out.println("The Game Ended in Draw!");
         }
-        //TODO: Undo operation.
         //TODO: Replay the moves.
+    }
+    private static Integer askPlayerCount(int boardSize) throws InvalidPlayerCountException{
+        System.out.println("Please provide no of Players : ");
+        Integer players = sc.nextInt();
+        if(players>=boardSize){
+            throw new InvalidPlayerCountException("Re-enter : Player count exceeds board size, only size-1 players allowed!");
+        }
+        if(players==1){
+            throw new InvalidPlayerCountException("Re-enter : Atleast 2 players are required to play TicTacToe!");
+        }
+        return players;
+    }
+    private static Character askSymbol() throws DuplicateSymbolException {
+        System.out.println("symbol: ");
+        Character symbol = sc.next().toCharArray()[0]; // get 1st character.
+        //validate symbol is unique or not.
+        if(uniqueSymbolSet.contains(symbol)){
+            throw new DuplicateSymbolException("Symbol is already taken!");
+        }
+        //add to set.
+        uniqueSymbolSet.add(symbol);
+        return symbol;
     }
     private static List<Player> askPlayerDetails(int players){
         List<Player> playerList = new ArrayList<>();
@@ -86,8 +99,14 @@ public class CommandLineClient {
             System.out.printf("Please enter details of Players : %d %n",i+1);
             System.out.println("name : ");
             String name = sc.next();
-            System.out.println("symbol: ");
-            Character symbol = sc.next().toCharArray()[0]; // get 1st character.
+            Character symbol = null;
+            while(symbol==null){
+                try{
+                    symbol = askSymbol();
+                }catch(DuplicateSymbolException e){
+                    System.out.println(e.getLocalizedMessage());
+                }
+            }
             System.out.println("Is it a bot or not ? y or n");
             String isBot = sc.next();
             if(isBot.equals("y")){

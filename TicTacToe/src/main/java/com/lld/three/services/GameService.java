@@ -23,6 +23,8 @@ public class GameService {
             System.out.println(board.displayBoard());
             //trigger makeMove for the game.
             Move move = makeMove(game);
+            //ask human player if need to undo last move?
+            CommandLineService.askIfNeedToUndoLastMove(game,move);
             //TriggerCheckwin()
             if(checkWin(game,move)){
                 game.setGameStatus(GameState.SUCCESS);
@@ -35,19 +37,25 @@ public class GameService {
         game.setGameStatus(GameState.DRAW);
         return GameState.DRAW;
     }
+    static void undoLastMove(Game game, Move recentMove){
+        //revert
+        //nextPlayerIndex.
+        game.moveBackNextPlayerIndex();
+        //Board state.
+        BoardService.emptyBoardCell(game.getBoard(), recentMove);
+    }
 
     private static Move makeMove(Game game){
         //get the nextPlayer.
         int nextPlayerIndex = game.getNextPlayerIndex();
-        List<Player> playerList = game.getPlayerList();
-        Player nextPlayer = playerList.get(nextPlayerIndex);
+        Player nextPlayer = game.getPlayerList().get(nextPlayerIndex);
         System.out.printf("%s turn!%n",nextPlayer.getUser().getName());
         //invoke makeMove() behavior of nextPlayer.
         Move move = nextPlayer.makeMove(game.getBoard());
         //update board.
         BoardService.updateBoardCell(game.getBoard(),move,nextPlayer);
         //update nextPlayerIndex()
-        game.updateNextPlayerIndex();
+        game.moveNextPlayerIndex();
         return move;
     }
     private static boolean checkWin(Game game, Move move){

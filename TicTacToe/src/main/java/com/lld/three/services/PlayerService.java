@@ -6,6 +6,7 @@ import com.lld.three.models.Player;
 import com.lld.three.models.User;
 import com.lld.three.models.enums.DifficultyLevel;
 import com.lld.three.factories.BotMovingStrategyFactory;
+import com.lld.three.models.enums.PlayerType;
 import com.lld.three.strategies.input.HumanPlayerInputStrategy;
 
 public class PlayerService {
@@ -17,6 +18,7 @@ public class PlayerService {
                     User
                     .builder()
                     .name(name)
+                    .playerType(PlayerType.HUMAN)
                     .build()
                 )
                 .symbol(symbol)
@@ -34,6 +36,7 @@ public class PlayerService {
                     User
                     .builder()
                     .name(name)
+                    .playerType(PlayerType.BOT)
                     .build()
                 )
                 .symbol(symbol)

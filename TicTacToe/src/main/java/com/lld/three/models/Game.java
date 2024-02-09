@@ -25,8 +25,10 @@ public class Game {
         this.gameStatus = GameState.INITIAL;
         this.nextPlayerIndex = 0; //first player.
     }
-    public void updateNextPlayerIndex(){
+    public void moveNextPlayerIndex(){
         nextPlayerIndex = (nextPlayerIndex+1)%playerList.size();
-        this.setNextPlayerIndex(nextPlayerIndex);
+    }
+    public void moveBackNextPlayerIndex(){
+        nextPlayerIndex = ((nextPlayerIndex-1)%playerList.size()+playerList.size())%playerList.size();
     }
 }
