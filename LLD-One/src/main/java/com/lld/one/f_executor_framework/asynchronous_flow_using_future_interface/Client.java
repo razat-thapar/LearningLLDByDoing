@@ -37,9 +37,7 @@ public class Client {
                 //Now, this is a Blocking Call and not asynchronous Flow anymore!
                 //Client/Main thread have to wait for execution to finish.
                 System.out.println(future.get());
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            } catch (ExecutionException e) {
+            } catch (InterruptedException | ExecutionException e) {
                 throw new RuntimeException(e);
             }
         }
