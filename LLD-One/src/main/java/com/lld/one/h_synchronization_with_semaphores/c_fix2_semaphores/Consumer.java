@@ -3,16 +3,10 @@ package com.lld.one.h_synchronization_with_semaphores.c_fix2_semaphores;
 import java.util.Queue;
 import java.util.concurrent.Semaphore;
 
-public class Consumer implements Runnable{
-    private Queue<Item> store;
-    private Semaphore sp ;
-    private Semaphore sc ;
+public class Consumer extends Base{
     public Consumer(Queue<Item> store , Semaphore sp , Semaphore sc){
-        this.store = store;
-        this.sc = sc;
-        this.sp = sp;
+        super(store,sp,sc);
     }
-
     @Override
     public void run() {
         try {

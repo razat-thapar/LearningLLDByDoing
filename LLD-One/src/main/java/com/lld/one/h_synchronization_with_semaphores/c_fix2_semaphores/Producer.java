@@ -3,14 +3,9 @@ package com.lld.one.h_synchronization_with_semaphores.c_fix2_semaphores;
 import java.util.Queue;
 import java.util.concurrent.Semaphore;
 
-public class Producer implements Runnable{
-    private Queue<Item> store;
-    private Semaphore sp;
-    private Semaphore sc;
+public class Producer extends Base{
     public Producer(Queue<Item> store, Semaphore sp , Semaphore sc){
-        this.store = store;
-        this.sp = sp;
-        this.sc = sc;
+        super(store,sp,sc);
     }
     @Override
     public void run(){

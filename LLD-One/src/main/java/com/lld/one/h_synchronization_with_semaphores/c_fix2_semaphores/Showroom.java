@@ -1,6 +1,8 @@
 package com.lld.one.h_synchronization_with_semaphores.c_fix2_semaphores;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.Semaphore;
 
@@ -8,7 +10,7 @@ public class Showroom {
     public static void main(String[] args) {
         //Scenario: A Queue<Item> represents our showroom having fixed capacity.
         // A producer thread produce a new item if store is not full and consumer removes an item if store is not empty.
-
+        List<Thread> threadList = new ArrayList<>();
         Queue<Item> store = new LinkedList<>();
         int capacity = 5;
         //max capacity of store is 5 as we have only 5 semaphores in total. (5 producer + 0 consumer)
@@ -22,7 +24,18 @@ public class Showroom {
             //start the threads.
             tp.start();
             tc.start();
+            threadList.add(tp);
+            threadList.add(tc);
         }
+        //main thread waits for all the threads to complete.
+        threadList.forEach(thread -> {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        System.out.println(Thread.currentThread().getName() + " ending.....");
         //Problems Observed : Synchronization problem
         // 1. Producer threads are able to add more items than max capacity i.e., 6 items in above case.
         /*
