@@ -1,16 +1,12 @@
-package com.lld.one.g_synchronization.b_fix_using_lock;
-
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+package com.lld.one.g_synchronization.c_fix_using_class_level_lock;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         //Scenario 1:
-        int iterations = 100000;
-        Lock lock = new ReentrantLock();
+        int iterations = 1000000;
         Counter counter = new Counter();
-        Adder adder = new Adder(counter,iterations,lock);
-        Subtractor subtractor = new Subtractor(counter,iterations,lock);
+        Adder adder = new Adder(counter,iterations);
+        Subtractor subtractor = new Subtractor(counter,iterations);
         //execute both the tasks concurrently.
         Thread t1 = new Thread(adder);
         Thread t2 = new Thread(subtractor);

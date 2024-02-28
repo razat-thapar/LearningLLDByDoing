@@ -1,4 +1,4 @@
-package com.lld.one.g_synchronization.b_fix_using_lock;
+package com.lld.one.g_synchronization.b_fix_using_object_level_lock;
 import java.util.concurrent.locks.Lock;
 public class Subtractor implements Runnable{
     private int iterations;
