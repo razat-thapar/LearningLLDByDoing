@@ -1,4 +1,4 @@
-package com.lld.one.h_synchronization_with_semaphores.c_fix2_semaphores;
+package com.lld.one.h_synchronization_with_semaphores.c_partial_fix2_semaphores;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -62,5 +62,13 @@ public class Showroom {
 
         //FIX 2 : Semaphores ( allow an upperbound of threads to enter the critical section. by having multiple locks.)
         //Problem : Race conditions may occur if the shared resource is not thread safe. Queue here.
+
+        //        Exception in thread "Thread-3" java.util.NoSuchElementException
+        //        at java.base/java.util.LinkedList.removeFirst(LinkedList.java:274)
+        //        at java.base/java.util.LinkedList.remove(LinkedList.java:689)
+        //        at com.lld.one.h_synchronization_with_semaphores.c_fix2_semaphores.Consumer.run(Consumer.java:18)
+        //        at java.base/java.lang.Thread.run(Thread.java:833)
+
+        //Final Fix: Semaphores + Concurrent Datastructures.
     }
 }

@@ -1,4 +1,4 @@
-package com.lld.one.h_synchronization_with_semaphores.c_fix2_semaphores;
+package com.lld.one.h_synchronization_with_semaphores.c_partial_fix2_semaphores;
 
 import java.util.Queue;
 import java.util.concurrent.Semaphore;
@@ -15,7 +15,7 @@ public class Producer extends Base{
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.printf("store size before adding : [%d] Producer %s %n", store.size(), Thread.currentThread().getName());
+        //System.out.printf("store size before adding : [%d] Producer %s %n", store.size(), Thread.currentThread().getName());
         store.add(newItem);
         //System.out.printf("[%d]/[%d] Producer %s produced : %s%n",store.size(),capacity,Thread.currentThread().getName(),newItem);
         System.out.printf("store size after adding : [%d] Producer %s %n", store.size(), Thread.currentThread().getName());

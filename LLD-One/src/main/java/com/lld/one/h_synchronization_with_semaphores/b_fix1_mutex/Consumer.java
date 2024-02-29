@@ -28,7 +28,7 @@ public class Consumer implements Runnable{
                 System.out.printf("store size before removing : [%d] Consumer %s %n", store.size(), Thread.currentThread().getName());
                 Item removedItem = store.remove();
                 //System.out.printf("[%d]/[%d] Consumer %s consumed : %s%n",store.size(),capacity,Thread.currentThread().getName(),removedItem);
-                System.out.printf("store size after removing : [%d] Consumer %s %n", store.size(), Thread.currentThread().getName());
+                //System.out.printf("store size after removing : [%d] Consumer %s %n", store.size(), Thread.currentThread().getName());
             }
         }
     }

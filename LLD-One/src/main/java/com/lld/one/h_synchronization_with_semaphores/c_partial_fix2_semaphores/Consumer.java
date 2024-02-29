@@ -1,4 +1,4 @@
-package com.lld.one.h_synchronization_with_semaphores.c_fix2_semaphores;
+package com.lld.one.h_synchronization_with_semaphores.c_partial_fix2_semaphores;
 
 import java.util.Queue;
 import java.util.concurrent.Semaphore;
@@ -17,7 +17,7 @@ public class Consumer extends Base{
         System.out.printf("store size before removing : [%d] Consumer %s %n", store.size(), Thread.currentThread().getName());
         Item removedItem = store.remove();
         //System.out.printf("[%d]/[%d] Consumer %s consumed : %s%n",store.size(),capacity,Thread.currentThread().getName(),removedItem);
-        System.out.printf("store size after removing : [%d] Consumer %s %n", store.size(), Thread.currentThread().getName());
+        //System.out.printf("store size after removing : [%d] Consumer %s %n", store.size(), Thread.currentThread().getName());
         sp.release(); // increase the count of producer semaphores.
     }
 }

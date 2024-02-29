@@ -14,7 +14,7 @@ public class Producer implements Runnable{
         Item newItem = new Item("Shirt");
         synchronized (store) {
             if (store.size() < capacity) {
-                System.out.printf("store size before adding : [%d] Producer %s %n", store.size(), Thread.currentThread().getName());
+                //System.out.printf("store size before adding : [%d] Producer %s %n", store.size(), Thread.currentThread().getName());
                 store.add(newItem);
                 //System.out.printf("[%d]/[%d] Producer %s produced : %s%n",store.size(),capacity,Thread.currentThread().getName(),newItem);
                 System.out.printf("store size after adding : [%d] Producer %s %n", store.size(), Thread.currentThread().getName());

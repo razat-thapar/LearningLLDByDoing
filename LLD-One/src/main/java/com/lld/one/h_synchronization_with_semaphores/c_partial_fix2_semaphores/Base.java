@@ -1,4 +1,4 @@
-package com.lld.one.h_synchronization_with_semaphores.c_fix2_semaphores;
+package com.lld.one.h_synchronization_with_semaphores.c_partial_fix2_semaphores;
 
 import java.util.Queue;
 import java.util.concurrent.Semaphore;

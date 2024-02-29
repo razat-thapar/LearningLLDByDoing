@@ -1,4 +1,4 @@
-package com.lld.one.h_synchronization_with_semaphores.c_fix2_semaphores;
+package com.lld.one.h_synchronization_with_semaphores.c_partial_fix2_semaphores;
 
 public class Item {
     private static int counter = 0;
