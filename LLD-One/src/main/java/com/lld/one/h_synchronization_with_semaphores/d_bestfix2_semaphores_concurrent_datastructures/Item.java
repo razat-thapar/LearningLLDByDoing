@@ -5,9 +5,15 @@ public class Item {
     private String type ;
     private int serial_no ;
     public Item(String type){
-        counter++;
-        this.serial_no = counter;
+        //class level locking.
+        synchronized (Item.class){
+            counter++;
+            this.serial_no = counter;
+        }
         this.type = type;
+    }
+    public static int getCounter(){
+        return counter;
     }
 
     @Override

@@ -5,7 +5,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Semaphore;
 
 public class Consumer extends Base {
-    public Consumer(ConcurrentLinkedQueue<Item> store , Semaphore sp , Semaphore sc){
+    public Consumer(Queue<Item> store , Semaphore sp , Semaphore sc){
         super(store,sp,sc);
     }
     @Override

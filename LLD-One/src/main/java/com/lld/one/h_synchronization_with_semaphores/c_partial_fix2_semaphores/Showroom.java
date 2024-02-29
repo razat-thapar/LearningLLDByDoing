@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.Semaphore;
+//import static com.lld.one.h_synchronization_with_semaphores.d_bestfix2_semaphores_concurrent_datastructures.Item.getCounter;
 
 public class Showroom {
     public static void main(String[] args) {
@@ -35,6 +36,7 @@ public class Showroom {
                 throw new RuntimeException(e);
             }
         });
+        System.out.println(Item.getCounter());
         System.out.println(Thread.currentThread().getName() + " ending.....");
         //Problems Observed : Synchronization problem
         // 1. Producer threads are able to add more items than max capacity i.e., 6 items in above case.

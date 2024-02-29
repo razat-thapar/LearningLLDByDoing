@@ -5,7 +5,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Semaphore;
 
 public class Producer extends Base {
-    public Producer(ConcurrentLinkedQueue<Item> store, Semaphore sp , Semaphore sc){
+    public Producer(Queue<Item> store, Semaphore sp , Semaphore sc){
         super(store,sp,sc);
     }
     @Override
