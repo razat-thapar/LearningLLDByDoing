@@ -121,6 +121,52 @@ while (true) {
 A concurrent data structure is a particular way of storing and organizing data for access by multiple computing threads (or processes) on a computer. A shared mutable state very easily leads to problems when concurrency is involved. If access to shared mutable objects is not managed properly, applications can quickly become prone to some hard-to-detect concurrency errors.
 
 Some common concurrent data structures:
-1. [Atomic Integer](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html#:~:text=An%20AtomicInteger%20is%20used%20in,deal%20with%20numerically%2Dbased%20classes)
-   > The AtomicInteger class protects an underlying int value by providing methods that perform atomic operations on the value
-2. [Concurrent hash maps](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentHashMap.html)
+* **Atomic Variables**
+    > Atomic means Indivisible / a single unit.  
+      def: A wrapper over the underlying int/boolean/long values by providing methods that perform atomic operations on the value
+  * [AtomicInteger](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html)
+  * [AtomicLong](https://docs.oracle.com/javase%2F9%2Fdocs%2Fapi%2F%2F/java/util/concurrent/atomic/AtomicLong.html)
+  * [AtomicBoolean](https://docs.oracle.com/javase%2F9%2Fdocs%2Fapi%2F%2F/java/util/concurrent/atomic/AtomicBoolean.html)
+  
+* **Concurrent Datastructures**
+  * [ConcurrentHashMap<K,V>](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentHashMap.html)
+    1. ConcurrentHashMap internally uses HashTable as its data structure. It is thread safe just like Hashtable. 
+    2. It provides all the functionalities of HashMap except thread safety.
+    2. ConcurrentHashMap internally divides it into segments. Each segment works independently and can be accessed by different reader threads simultaneously. However, each segment can be accessed only by one writer thread at a time. This also means, a concurrent hash map can be accessed by as many writer threads together as there are segments.
+    3. The default level of concurrency is 16. Which means by default, there are 16 segments.
+    4. Read operations don’t require locking of cocurrent hash map, where as write operations do require locking.
+    5. Locking is known as segment or bucket locking.
+    6. Concurrent hash map doesn’t allow null key or null values.
+  * [CopyOnWriteArrayList\<E\>](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CopyOnWriteArrayList.html)
+    * [Detailed Explaination](https://medium.com/@reetesh043/the-copyonwritearraylist-internals-a-deep-dive-ff3ebad87697)
+      1. The CopyOnWriteArrayList is a thread safe version of ArrayList. 
+      2. If we are making modifications like adding, removing elements in CopyOnWriteArrayList, then JVM does so by creating a new copy of it by the use of Cloning. 
+      2. CopyOnWriteArrayList is costly if used in case of more update operations. Because when changes are made, JVM has to create a cloned copy of the underlying array and add/update elements to it.
+      3. Multiple threads can read the data from CopyOnWriteArrayList, but only one thread can write data at a particular time.
+      4. We can add duplicate elements in it.
+      5. **CopyOnWriteArrayList is the best choice in multithreading, if there are more read O(1) operations compared to writes O(N).**
+      6. **Alternatives if writes are more in CopyOnWriteArrayList\<E\>**
+         0. **Note:** These are basically using synchronized methods.
+         1. [Vector\<E\>](https://docs.oracle.com/javase/8/docs/api/java/util/Vector.html)
+         2. [Collections.SynchronizedList\<E\>](https://docs.oracle.com/javase/6/docs/api/java/util/Collections.html#synchronizedList(java.util.List)) 
+      7. Any number of reader threads can access CopyOnWriteArrayList simultaneously. And reader and writer threads do not block each other.
+  * [CopyOnWriteArraySet\<E\>](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CopyOnWriteArraySet.html)
+    1. CopyOnWriteArraySet is like CopyOnWriteArrayList. 
+    2. It is thread safe version of HashSet.
+  * [ConcurrentSkipListMap<K,V>](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentSkipListMap.html)
+    1. It is thread safe version of TreeMap. 
+  * [ConcurrentSkipListSet\<K\>](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentSkipListSet.html)
+    1. It is thread safe version of TreeSet. 
+  * [ConcurrentLinkedQueue\<E\>](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentLinkedQueue.html)
+    1. It is thread safe version implementing Queue<E> interface.
+    2. It internally uses Singly LinkedList data structure. 
+  * [ConcurrentLinkedDeque\<E\>](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentLinkedDeque.html)
+    1. It is thread safe version implementing Deque<E> interface. (equivalent to LinkedList<E>)
+    2. It internally uses Doubly Linked List data Structure.
+  * [PriorityBlockingQueue\<E\>](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/PriorityBlockingQueue.html)
+    1. [Detailed Explaintation](https://topdeveloperacademy.com/articles/java-priorityblockingqueue-thread-safe-and-memory-efficient-concurrent-heap)
+    2. It is thread safe version of PriorityQueue. 
+    3. It internally uses Array based binary tree heap data Structure. 
+    4. It is dynamic and unbounded ! It grows in size and not bounded by a max limit. 
+  * [Collections](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html)
+    1. **NOTE:** **Collections Class also provided a synchronized versions of List,Map,Set,TreeSet,TreeMap.**
