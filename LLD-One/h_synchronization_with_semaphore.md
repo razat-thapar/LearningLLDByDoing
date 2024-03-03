@@ -170,3 +170,67 @@ Some common concurrent data structures:
     4. It is dynamic and unbounded ! It grows in size and not bounded by a max limit. 
   * [Collections](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html)
     1. **NOTE:** **Collections Class also provided a synchronized versions of List,Map,Set,TreeSet,TreeMap.**
+
+## Deadlocks
+
+A deadlock in OS is a situation in which more than one process is blocked because it is holding a resource and also requires some resource that is acquired by some other process.
+
+### Conditions for a deadlock
+* `Mutual exclusion` - The resource is held by only one process at a time and cannot be acquired by another process.
+* `Hold and wait` - A process is **holding** a resource and **waiting** for another resource to be released by another a process.
+* `No preemption` - The resource can only be released once the execution of the process is complete.
+* `Circular wait` - A set of processes are waiting for each other circularly. Process `P1` is waiting for process `P2` and process `P2` is waiting for process `P1`.
+
+![Deadlock](https://scaler.com/topics/images/deadlock-in-os-image1.webp)
+
+Process P1 and P2 are in a deadlock because:
+* Resources are non-shareable. (Mutual exclusion)
+* Process 1 holds "Resource 1" and is waiting for "Resource 2" to be released by process 2. (Hold and wait)
+* None of the processes can be preempted. (No preemption)
+* "Resource 1" and needs "Resource 2" from Process 2 while Process 2 holds "Resource 2" and requires "Resource 1" from Process 1. (Circular wait)
+
+### Tackling deadlocks
+
+There are three ways to tackle deadlocks:
+* Prevention - Implementing a mechanism to prevent the deadlock.
+* Avoidance - Avoiding deadlocks by not allocating resources when deadlocks are possible.
+* Detecting and recovering - Detecting deadlocks and recovering from them.
+* Ignorance - Ignore deadlocks as they do not happen frequently.
+
+#### Prevention and avoidance
+
+Deadlock prevention means to block at least one of the four conditions required for deadlock to occur. If we are able to block any one of them then deadlock can be prevented. Spooling and non-blocking synchronization algorithms are used to prevent the above conditions. In deadlock prevention all the requests are granted in a finite amount of time.
+
+In Deadlock avoidance we have to anticipate deadlock before it really occurs and ensure that the system does not go in unsafe state.It is possible to avoid deadlock if resources are allocated carefully. For deadlock avoidance we use Banker’s and Safety algorithm for resource allocation purpose. In deadlock avoidance the maximum number of resources of each type that will be needed are stated at the beginning of the process.
+
+#### Detecting and recovering from deadlocks
+
+We let the system fall into a deadlock and if it happens, we detect it using a detection algorithm and try to recover.
+
+Some ways of recovery are as follows:
+
+* Aborting all the deadlocked processes.
+* Abort one process at a time until the system recovers from the deadlock.
+* Resource Preemption: Resources are taken one by one from a process and assigned to higher priority processes until the deadlock is resolved.
+
+#### Ignorance
+
+The system assumes that deadlock never occurs. Since the problem of deadlock situation is not frequent, some systems simply ignore it. Operating systems such as UNIX and Windows follow this approach. However, if a deadlock occurs we can reboot our system and the deadlock is resolved automatically.
+
+## Tackling deadlocks at an application level
+* **Always take the locks across your application in a defined order.** 
+  * e.g., in book my show app, 
+  * To book a set of seats, every seat needs to be locked.
+  * _Scenario:_ 
+    * Thread 1 and Thread 2 are user requests that came at same time and need to book some set of seats. 
+    * Thread 1 : 8,3,12,4
+    * Thread 2 : 12,5,3,9,6
+    * Now, easily a deadlock can occur here if we do acquire the seat lock in the above order. 
+    * FIX: we will sort the seats in ascending order and then take the locks. 
+    * Thread 1 : 3,4,8,12
+    * Thread 2 : 3,5,6,9,12
+    * This way no Deadlock will occur!
+* OTHER WAYS:
+  * Set timeouts for all the processes. If a process does not respond within the timeout period, it is killed.
+  * Implementing with caution: Use interfaces that handle or provide callbacks if locks are held by other processes.
+  * Add timeout to locks: If a process requests a lock, and it is held by another process, it will wait for the lock to be released until the timeout expires.
