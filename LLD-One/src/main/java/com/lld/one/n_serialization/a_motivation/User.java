@@ -1,4 +1,4 @@
-package com.lld.one.n_serialization.a_demo;
+package com.lld.one.n_serialization.a_motivation;
 
 import lombok.Builder;
 import lombok.Getter;

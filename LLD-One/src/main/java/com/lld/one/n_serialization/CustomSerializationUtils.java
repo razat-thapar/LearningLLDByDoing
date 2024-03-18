@@ -1,44 +1,43 @@
 package com.lld.one.n_serialization;
 
-import java.io.*;
 import com.lld.one.n_serialization.e_custom_serialization_using_externalization.User;
 
-public class SerializationUtils<E> {
-    //convert a java object to byte stream and save it to a file.
-    public void serialize(E obj, String filename) throws IOException {
+import java.io.*;
+
+public class CustomSerializationUtils {
+    public void serialize(Externalizable obj, String filename) throws IOException {
         ObjectOutputStream oos = null;
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(filename);
             oos = new ObjectOutputStream(fos);
             //convert to byte stream and write it to output stream
-            oos.writeObject(obj);
-
+            obj.writeExternal(oos);
         } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         } finally {
             oos.close();
             fos.close();
         }
     }
-
-    //convert the byte stream representation of an object stored in file to it's Java Object!.
-    public E deserialize(String filename) throws IOException {
+    public User deserializeUser(String filename) throws IOException {
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         //get the byte stream from filename.
         try {
             fis = new FileInputStream(filename);
             ois = new ObjectInputStream(fis);
-            return (E) ois.readObject();
+            User user = User.builder().build();
+            user.readExternal(ois);
+            return user;
         } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }finally {
             ois.close();
             fis.close();
