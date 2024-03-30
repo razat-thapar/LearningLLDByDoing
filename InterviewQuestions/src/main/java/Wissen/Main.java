@@ -4,11 +4,11 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        int[][] grid = {{0,0,0,0,0,0},{0,1,1,1,1,0},{0,1,0,0,1,0},{0,1,0,0,1,0},{0,1,1,1,1,0},{0,0,0,0,0,0}};
+        int[][] grid = {{0,0,0,0,0,0},{0,0,1,1,0,0},{0,1,0,0,1,0},{0,1,0,0,1,0},{0,0,1,1,0,0},{0,0,0,0,0,0}};
         System.out.println("Current grid");
         printGrid(grid);
         Paint p = new Paint(grid);
-        p.paintAll(0,0);
+        p.paintAll(2,2);
         System.out.println("after painting!");
         printGrid(grid);
     }

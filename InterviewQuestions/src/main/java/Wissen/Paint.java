@@ -22,12 +22,14 @@ public class Paint {
     public void paintAll(int x, int y){
         //BFS algorithm.
         // each cell is node
-        // we have an edge with all 8 adjacent nodes.
+        // we have an edge with all 4 adjacent nodes.
         //color only nodes that are white adjacent nodes.
         int n = grid.length;
         int m = grid[0].length;
-        int[] dx = {1,1,0,-1,-1,-1,0,1};
-        int[] dy = {0,1,1,1,0,-1,-1,-1};
+//        int[] dx = {1,1,0,-1,-1,-1,0,1};
+//        int[] dy = {0,1,1,1,0,-1,-1,-1};
+        int[] dx = {1,0,-1,0};
+        int[] dy = {0,1,0,-1};
         Queue<Cell> q = new LinkedList<>();
         //push src.
         q.add(new Cell(x,y));
@@ -40,7 +42,7 @@ public class Paint {
             //mark visited.
             fill(front.x,front.y);
             //visit all unvisited neighbors
-            for(int d=0;d<8;d++){
+            for(int d=0;d<dx.length;d++){
                 nbr_x = front.x+dx[d];
                 nbr_y = front.y+dy[d];
                 //check out of bounds and isVisited.
