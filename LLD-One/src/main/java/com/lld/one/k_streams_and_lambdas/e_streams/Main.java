@@ -34,7 +34,8 @@ public class Main {
                 .collect(Collectors.toList());
         System.out.println(numbers4); //numbers4 weren't modified due to collect method.
         System.out.println(ans4); //all modifications were stored in ans4
-        
+
+
 
     }
 }
