@@ -52,7 +52,8 @@ public class SolutionWorksheet2 {
         employeeList.add(new Employee("Vineeta",35,Gender.FEMALE,20000000,"FOUNDER",DepartmentType.MANAGEMENT));
 //      ### 1. Get the youngest employee in the company.
         //steps 1: we need to reduce the employees to only 1 employee with min age.
-        Employee youngestEmployee = employeeList.stream().reduce(BinaryOperator.minBy((emp1,emp2)->emp1.getAge()-emp2.getAge())).orElseThrow(()->new RuntimeException("Employee is empty!"));
+        //Employee youngestEmployee = employeeList.stream().reduce(BinaryOperator.minBy((emp1,emp2)->emp1.getAge()-emp2.getAge())).orElseThrow(()->new RuntimeException("Employee is empty!"));
+        Employee youngestEmployee = employeeList.stream().min((emp1,emp2)-> emp1.getAge()-emp2.getAge()).orElseThrow(()->new RuntimeException("No Employee Found!!"));
         System.out.println(youngestEmployee);
         System.out.println("--------------------------------------------------------------");
 //      ### 2. The top 5 highest salaried employees.
