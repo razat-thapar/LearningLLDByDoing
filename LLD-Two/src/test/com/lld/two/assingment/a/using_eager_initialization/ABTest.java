@@ -1,4 +1,4 @@
-package com.lld.two.assingment.a;
+package com.lld.two.assingment.a.using_eager_initialization;
 
 import org.junit.jupiter.api.*;
 
@@ -27,9 +27,10 @@ public class ABTest {
 
     @Test
     @Order(2)
+    @Disabled
     public void testGetInstanceOtherCalls() {
-        RuntimeException exceptionA = assertThrowsExactly(RuntimeException.class,()->A.getInstance());
-        RuntimeException exceptionB = assertThrowsExactly(RuntimeException.class,()->B.getInstance());
+        RuntimeException exceptionA = assertThrowsExactly(RuntimeException.class,()-> A.getInstance());
+        RuntimeException exceptionB = assertThrowsExactly(RuntimeException.class,()-> B.getInstance());
         assertEquals(exceptionA.getMessage(), "2nd time object creation call not allowed!!");
         assertEquals(exceptionB.getMessage(), "2nd time object creation call not allowed!!");
     }

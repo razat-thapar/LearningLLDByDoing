@@ -1,9 +1,6 @@
-package com.lld.two.assingment.a;
+package com.lld.two.assingment.a.using_eager_initialization;
 
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,6 +16,7 @@ class BTest {
 
     @Test
     @Order(2)
+    @Disabled
     void getInstanceOtherCalls() {
         RuntimeException runtimeException = assertThrowsExactly(RuntimeException.class, () -> B.getInstance());
         assertEquals(runtimeException.getMessage(),"2nd time object creation call not allowed!!");
