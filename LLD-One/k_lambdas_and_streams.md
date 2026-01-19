@@ -69,7 +69,7 @@ public class Application {
 }
 ```
 
-Here, we have passed a lambda expression to the `Thread` constructor. The lambda expression is a block of code that gets passed around, like an anonymous method. It is a way to pass behavior as an argument to a method invocation and to define a method without a name. The syntax of a lambda expression is as follows:
+Here, we have passed a lambda expression to the `Thread` constructor. The lambda expression is a block of code that gets passed around, like an **anonymous method** (method without a name that you define inline in your code.). It is a way to pass behavior as an argument to a method invocation and to define a method without a name. The syntax of a lambda expression is as follows:
 
 1. **Parameter List:** This represents the parameters passed to the lambda expression. It can be empty or contain one or more parameters enclosed in parentheses. If there's only one parameter and its type is inferred, you can omit the parentheses.
 
