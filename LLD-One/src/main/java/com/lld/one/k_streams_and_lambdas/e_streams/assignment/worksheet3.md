@@ -14,8 +14,8 @@
 Given a list of integers, return a list containing the **square of even numbers only**.
 
 ```java
-Input: [1, 2, 3, 4, 5]
-Output: [4, 16]
+// Input: [1, 2, 3, 4, 5]
+// Output: [4, 16]
 ```
 
 ---
@@ -25,8 +25,8 @@ Output: [4, 16]
 Given a list of strings, convert them to **uppercase** and return only those with **length greater than 3**.
 
 ```java
-Input: ["java", "go", "spring", "api"]
-Output: ["JAVA", "SPRING"]
+// Input: ["java", "go", "spring", "api"]
+// Output: ["JAVA", "SPRING"]
 ```
 
 ---
@@ -52,8 +52,8 @@ Return a list of **emails of active users**.
 Given a list of words, return a map containing **each word and its frequency**.
 
 ```java
-Input: ["apple", "banana", "apple"]
-Output: {apple=2, banana=1}
+// Input: ["apple", "banana", "apple"]
+// Output: {apple=2, banana=1}
 ```
 
 ---
@@ -143,8 +143,8 @@ Given a list of lists of integers, return a **single flattened list**.
 Given a list of words, return a list of **distinct characters** across all words.
 
 ```java
-Input: ["java", "stream"]
-Output: [j, a, v, s, t, r, e, m]
+// Input: ["java", "stream"]
+// Output: [j, a, v, s, t, r, e, a, m]
 ```
 
 ---
@@ -172,7 +172,7 @@ Return a list of **all item names** from all orders.
 Given a list of words, return a map of:
 
 ```java
-word → length
+//word → length
 ```
 
 ⚠️ Handle duplicate words safely.
@@ -184,7 +184,7 @@ word → length
 Given a list of employees, return a map:
 
 ```java
-name → salary
+//name → salary
 ```
 
 If duplicate names exist, keep the **higher salary**.
@@ -220,8 +220,8 @@ Given an integer array, return the **maximum element**.
 Given a string, return the **first non-repeating character**.
 
 ```java
-Input: "aabbcddee"
-Output: 'c'
+// Input: "aabbcddee"
+// Output: 'c'
 ```
 
 ---
