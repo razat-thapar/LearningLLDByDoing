@@ -743,3 +743,242 @@ source.stream()                    // Create stream
 - Use for CPU-intensive operations on large datasets
 - Avoid for small datasets (overhead > benefit)
 - Avoid when operations have side effects or depend on order
+
+## Advanced 
+### Collectors.groupingBy()
+Absolutely 😄
+`Collectors.groupingBy` is one of those APIs that feels *mystical* until it clicks—then it becomes your **go-to interview weapon**.
+
+I’ll teach it in a **progressive, mental-model way**, not by dumping signatures.
+
+---
+
+#### 🧠 First: What `groupingBy` REALLY does
+
+Think of `groupingBy` as:
+
+> **“Split elements into buckets based on a key.”**
+
+In plain English:
+
+```text
+Take a stream
+→ decide a key for each element
+→ put elements with the same key together
+```
+
+---
+
+#### 1️⃣ Simplest form (1-argument)
+
+```java
+Collectors.groupingBy(classifier)
+```
+
+#### Example
+
+```java
+List<String> names = List.of("apple", "ant", "ball", "bat");
+
+Map<Character, List<String>> map =
+    names.stream()
+         .collect(Collectors.groupingBy(s -> s.charAt(0)));
+```
+
+#### Result
+
+```text
+a → [apple, ant]
+b → [ball, bat]
+```
+
+📌 **Default behavior**
+
+* Map type: `HashMap`
+* Value type: `List<T>`
+
+---
+
+#### 2️⃣ Adding a downstream collector (MOST IMPORTANT)
+
+```java
+Collectors.groupingBy(classifier, downstream)
+```
+
+#### Example: frequency count
+
+```java
+String str = "banana";
+
+Map<Character, Long> freq =
+    str.chars()
+       .mapToObj(c -> (char) c)
+       .collect(Collectors.groupingBy(
+           c -> c,
+           Collectors.counting()
+       ));
+```
+
+#### Result
+
+```text
+b → 1
+a → 3
+n → 2
+```
+
+📌 Mental model:
+
+> “Group first, then apply something to each group.”
+
+---
+
+#### 3️⃣ Full power form (3-argument) 💥
+
+```java
+Collectors.groupingBy(classifier, mapFactory, downstream)
+```
+
+#### Example: preserve order (interview favorite)
+
+```java
+Map<Character, Long> freq =
+    str.chars()
+       .mapToObj(c -> (char) c)
+       .collect(Collectors.groupingBy(
+           c -> c,
+           LinkedHashMap::new,
+           Collectors.counting()
+       ));
+```
+
+📌 Why?
+
+* `HashMap` ❌ loses order
+* `LinkedHashMap` ✅ preserves insertion order
+
+---
+
+#### 🧩 Common downstream collectors (memorize this)
+
+| Downstream                  | Meaning                |
+| --------------------------- | ---------------------- |
+| `Collectors.counting()`     | count elements         |
+| `Collectors.toList()`       | collect values         |
+| `Collectors.toSet()`        | unique values          |
+| `Collectors.summingInt()`   | sum                    |
+| `Collectors.averagingInt()` | average                |
+| `Collectors.mapping()`      | transform then collect |
+| `Collectors.maxBy()`        | max per group          |
+| `Collectors.minBy()`        | min per group          |
+
+---
+
+#### 4️⃣ Real interview examples
+
+---
+
+#### 🔹 Frequency Map (classic)
+
+```java
+Map<Character, Long> freq =
+    str.chars()
+       .mapToObj(c -> (char) c)
+       .collect(Collectors.groupingBy(
+           c -> c,
+           Collectors.counting()
+       ));
+```
+
+---
+
+#### 🔹 Group by length
+
+```java
+Map<Integer, List<String>> byLength =
+    names.stream()
+         .collect(Collectors.groupingBy(String::length));
+```
+
+---
+
+#### 🔹 Group + transform (mapping)
+
+```java
+Map<Character, List<Integer>> map =
+    names.stream()
+         .collect(Collectors.groupingBy(
+             s -> s.charAt(0),
+             Collectors.mapping(String::length, Collectors.toList())
+         ));
+```
+
+---
+
+#### 🔹 Group + max value
+
+```java
+Map<Character, Optional<String>> longest =
+    names.stream()
+         .collect(Collectors.groupingBy(
+             s -> s.charAt(0),
+             Collectors.maxBy(Comparator.comparingInt(String::length))
+         ));
+```
+
+---
+
+#### 5️⃣ groupingBy vs toMap (VERY common question)
+
+#### `toMap`
+
+```java
+Collectors.toMap(k, v, mergeFn)
+```
+
+* You handle collisions manually
+* Better for **simple maps**
+
+#### `groupingBy`
+
+```java
+Collectors.groupingBy(k, downstream)
+```
+
+* Automatically handles duplicates
+* Better for **aggregation**
+
+📌 Interview line:
+
+> “If duplicates are expected, `groupingBy` is safer than `toMap`.”
+
+---
+
+#### 6️⃣ Why `groupingBy` is powerful
+
+Because it:
+
+* replaces nested loops
+* removes mutable maps
+* expresses intent clearly
+* composes cleanly
+
+---
+
+#### 7️⃣ One mental cheat-sheet 🧠
+
+```text
+groupingBy(
+    how_to_group,
+    what_map_to_use,
+    what_to_do_with_each_group
+)
+```
+
+---
+
+#### 🎯 Interview-ready explanation (30 seconds)
+
+> “`Collectors.groupingBy` groups stream elements based on a classifier function and optionally applies a downstream collector to each group. It’s commonly used for frequency maps, aggregations, and hierarchical grouping.”
+
+---
